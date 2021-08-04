@@ -7,6 +7,11 @@
              mc:Ignorable="d" Name="root" Background="#FFF0F0F0"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
+        <SolidColorBrush x:Key="LightBorder">#FFD1D1D1</SolidColorBrush>
+        
+        
+        
+        
         <Style TargetType="ToggleButton">
             <Setter Property="SnapsToDevicePixels" Value="True" />
             <Setter Property="Focusable" Value="False" />
@@ -61,59 +66,78 @@
             <Setter Property="BorderThickness" Value="1" />
         </Style>
     </UserControl.Resources>
-    <Grid>
+    <Grid SnapsToDevicePixels="True">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="22"/>
+            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="22"/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="22"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="22"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
+        <Border Grid.Row="0" Grid.Column="1" BorderBrush="{StaticResource LightBorder}">
+            <Border.Style>
+                <Style TargetType="Border">
+                    <Setter Property="BorderThickness" Value="0,0,0,1" />
+                    <Style.Triggers>
+                        <MultiDataTrigger>
+                            <MultiDataTrigger.Conditions>
+                                <Condition Binding="{Binding TopLeftButtons.Count, ElementName=root}" Value="0" />
+                                <Condition Binding="{Binding TopRightButtons.Count, ElementName=root}" Value="0" />
+                            </MultiDataTrigger.Conditions>
+                            <MultiDataTrigger.Setters>
+                                <Setter Property="BorderThickness" Value="0" />
+                            </MultiDataTrigger.Setters>
+                        </MultiDataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </Border.Style>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <ItemsControl Grid.Column="0" ItemsSource="{Binding TopLeftButtons ,ElementName=root}" ItemsPanel="{StaticResource HorizontalItemsPanelTemplate}" />
+                <ItemsControl Grid.Column="2" ItemsSource="{Binding TopRightButtons ,ElementName=root}" ItemsPanel="{StaticResource HorizontalItemsPanelTemplate}" />
+            </Grid>
+        </Border>
+        <Border Grid.Row="2" Grid.Column="1" BorderBrush="{StaticResource LightBorder}" BorderThickness="0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <ItemsControl Grid.Column="0" ItemsSource="{Binding BottomLeftButtons ,ElementName=root}" ItemsPanel="{StaticResource HorizontalItemsPanelTemplate}" />
+                <ItemsControl Grid.Column="2" ItemsSource="{Binding BottomRightButtons ,ElementName=root}" ItemsPanel="{StaticResource HorizontalItemsPanelTemplate}" />
+            </Grid>
+        </Border>
+        <Border Grid.Row="1" Grid.Column="0" BorderBrush="{StaticResource LightBorder}" BorderThickness="0,1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <ItemsControl Grid.Row="0" ItemsSource="{Binding LeftTopButtons ,ElementName=root}" ItemsPanel="{StaticResource Vertical270ItemsPanelTemplate}" />
+                <ItemsControl Grid.Row="2" ItemsSource="{Binding LeftBottomButtons ,ElementName=root}" ItemsPanel="{StaticResource Vertical270ItemsPanelTemplate}" />
+            </Grid>
+        </Border>
+        <Border Grid.Row="1" Grid.Column="2" BorderBrush="{StaticResource LightBorder}" BorderThickness="0,1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <ItemsControl Grid.Row="0" ItemsSource="{Binding RightTopButtons ,ElementName=root}" ItemsPanel="{StaticResource Vertical270ItemsPanelTemplate}" />
+                <ItemsControl Grid.Row="2" ItemsSource="{Binding RightBottomButtons ,ElementName=root}" ItemsPanel="{StaticResource Vertical270ItemsPanelTemplate}" />
+            </Grid>
+        </Border>
 
-        
-        
-        <Grid Grid.Row="0" Grid.Column="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <ItemsControl Grid.Column="0" ItemsSource="{Binding TopLeftButtons ,ElementName=root}" ItemsPanel="{StaticResource HorizontalItemsPanelTemplate}" />
-            <ItemsControl Grid.Column="2" ItemsSource="{Binding TopRightButtons ,ElementName=root}" ItemsPanel="{StaticResource HorizontalItemsPanelTemplate}" />
-        </Grid>
-        <Grid Grid.Row="2" Grid.Column="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-            </Grid.ColumnDefinitions>
-            <ItemsControl Grid.Column="0" ItemsSource="{Binding BottomLeftButtons ,ElementName=root}" ItemsPanel="{StaticResource HorizontalItemsPanelTemplate}" />
-            <ItemsControl Grid.Column="2" ItemsSource="{Binding BottomRightButtons ,ElementName=root}" ItemsPanel="{StaticResource HorizontalItemsPanelTemplate}" />
-        </Grid>
-        <Grid Grid.Row="1" Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <ItemsControl Grid.Row="0" ItemsSource="{Binding LeftTopButtons ,ElementName=root}" ItemsPanel="{StaticResource Vertical270ItemsPanelTemplate}" />
-            <ItemsControl Grid.Row="2" ItemsSource="{Binding LeftBottomButtons ,ElementName=root}" ItemsPanel="{StaticResource Vertical270ItemsPanelTemplate}" />
-        </Grid>
-        <Grid Grid.Row="1" Grid.Column="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
-            <ItemsControl Grid.Row="0" ItemsSource="{Binding RightTopButtons ,ElementName=root}" ItemsPanel="{StaticResource Vertical270ItemsPanelTemplate}" />
-            <ItemsControl Grid.Row="2" ItemsSource="{Binding RightBottomButtons ,ElementName=root}" ItemsPanel="{StaticResource Vertical270ItemsPanelTemplate}" />
-        </Grid>
-
-
-        
         <Grid Grid.Row="1" Grid.Column="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="{Binding TopSize ,ElementName=root, Mode=TwoWay, Delay=500}"/>
@@ -142,7 +166,7 @@
                             </Style.Triggers>
                         </Style>
                     </Border.Style>
-                    <local:ToolView/>
+                    <local:ToolView x:Name="TopLeftToolPanel"/>
                 </Border>
                 <GridSplitter Grid.Column="1" Visibility="{Binding TopAndVisibility, ElementName=root, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 <Border Grid.Column="2" Visibility="{Binding TopRightVisibility ,ElementName=root,Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -160,7 +184,7 @@
                             </Style.Triggers>
                         </Style>
                     </Border.Style>
-                    <local:ToolView/>
+                    <local:ToolView x:Name="TopRightToolPanel"/>
                 </Border>
             </Grid>
             <GridSplitter Grid.Row="1" Visibility="{Binding TopOrVisibility, ElementName=root, Converter={StaticResource BooleanToVisibilityConverter}}" />
@@ -182,54 +206,198 @@
                         <Border.Style>
                             <Style TargetType="Border">
                                 <Setter Property="BorderBrush" Value="#FFD1D1D1" />
-                                <Setter Property="BorderThickness" Value="1,0,1,1" />
+                                <Setter Property="BorderThickness" Value="1,1,0,0" />
                                 <Setter Property="Margin" Value="0,-3,-3,-3" />
+
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding TopAndVisibility, ElementName=root}" Value="False">
+                                        <Setter Property="Margin" Value="0,-6,-3,-3" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding BottomAndVisibility, ElementName=root}" Value="False">
+                                        <Setter Property="Margin" Value="0,-3,-3,-6" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding LeftBottomVisibility, ElementName=root}" Value="False">
+                                        <Setter Property="BorderThickness" Value="1,1,0,1" />
+                                    </DataTrigger>
+
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding LeftBottomVisibility, ElementName=root}" Value="False" />
+                                        </MultiDataTrigger.Conditions>
+                                        <MultiDataTrigger.Setters>
+                                            <Setter Property="Margin" Value="0,-6,-3,-12" />
+                                        </MultiDataTrigger.Setters>
+                                    </MultiDataTrigger>
+
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding LeftBottomVisibility, ElementName=root}" Value="True" />
+                                        </MultiDataTrigger.Conditions>
+                                        <MultiDataTrigger.Setters>
+                                            <Setter Property="Margin" Value="0,-6,-3,-6" />
+                                        </MultiDataTrigger.Setters>
+                                    </MultiDataTrigger>
+                                    
+                                    
+                                    
+                                </Style.Triggers>
                             </Style>
                         </Border.Style>
-                        <local:ToolView/>
+                        <local:ToolView x:Name="LeftTopToolPanel"/>
                     </Border>
-                    <GridSplitter Grid.Row="1" />
+                    <GridSplitter Grid.Row="1" Visibility="{Binding LeftAndVisibility, ElementName=root, Converter={StaticResource BooleanToVisibilityConverter}}" />
                     <Border Grid.Row="2" Visibility="{Binding LeftBottomVisibility ,ElementName=root,Converter={StaticResource BooleanToVisibilityConverter}}">
                         <Border.Style>
                             <Style TargetType="Border">
                                 <Setter Property="BorderBrush" Value="#FFD1D1D1" />
-                                <Setter Property="BorderThickness" Value="1,0,1,1" />
+                                <Setter Property="BorderThickness" Value="1,1,0,1" />
                                 <Setter Property="Margin" Value="0,-3,-3,-3" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding TopAndVisibility, ElementName=root}" Value="False">
+                                        <Setter Property="Margin" Value="0,-3,-3,-3" />
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding BottomAndVisibility, ElementName=root}" Value="False">
+                                        <Setter Property="Margin" Value="0,-3,-3,-6" />
+                                    </DataTrigger>
+                                    <MultiDataTrigger>
+                                        <MultiDataTrigger.Conditions>
+                                            <Condition Binding="{Binding LeftTopVisibility, ElementName=root}" Value="False" />
+                                        </MultiDataTrigger.Conditions>
+                                        <MultiDataTrigger.Setters>
+                                            <Setter Property="Margin" Value="0,-12,-3,-6" />
+                                        </MultiDataTrigger.Setters>
+                                    </MultiDataTrigger>
+                                </Style.Triggers>
                             </Style>
                         </Border.Style>
-                        <local:ToolView/>
+                        <local:ToolView x:Name="LeftBottomToolPanel"/>
                     </Border>
                 </Grid>
                 <GridSplitter Grid.Column="1" Visibility="{Binding LeftOrVisibility, ElementName=root, Converter={StaticResource BooleanToVisibilityConverter}}" />
-                <Grid Grid.Column="2">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
-                        <RowDefinition Height="6"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid Grid.Row="0">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="6"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <local:TabView Grid.Column="0" Margin="-3" />
-                        <GridSplitter Grid.Column="1" />
-                        <local:TabView Grid.Column="2" Margin="-3" />
+          
+                
+                
+                
+                
+                <Border Grid.Column="2" BorderBrush="{StaticResource LightBorder}" BorderThickness="1">
+                    <Border.Style>
+                        <Style TargetType="Border">
+                            <Setter Property="Margin" Value="-6" />
+                            <Style.Triggers>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding LeftOrVisibility, ElementName=root}" Value="True"/>
+                                        <Condition Binding="{Binding RightOrVisibility, ElementName=root}" Value="False"/>
+                                        <Condition Binding="{Binding TopOrVisibility, ElementName=root}" Value="False"/>
+                                        <Condition Binding="{Binding BottomOrVisibility, ElementName=root}" Value="False"/>
+                                    </MultiDataTrigger.Conditions>
+                                    <MultiDataTrigger.Setters>
+                                        <Setter Property="Margin" Value="-3,-6,-6,-6" />
+                                    </MultiDataTrigger.Setters>
+                                </MultiDataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Border.Style>
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="0"/>
+                            <RowDefinition Height="0"/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="0"/>
+                                <ColumnDefinition Width="0"/>
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Column="0" BorderBrush="{StaticResource LightBorder}" BorderThickness="0">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding TopLeftTabs.Count, ElementName=root}" Value="0">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <local:TabView x:Name="TopLeftTabPanel"/>
+                            </Border>
+                            <GridSplitter Grid.Column="1" />
+                            <Border Grid.Column="2" BorderBrush="{StaticResource LightBorder}" BorderThickness="1">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding TopRightTabs.Count, ElementName=root}" Value="0">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <local:TabView x:Name="TopRightTabPanel"/>
+                            </Border>
+                        </Grid>
+                        <GridSplitter Grid.Row="1">
+
+                        </GridSplitter>
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="6"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Column="0" BorderBrush="{StaticResource LightBorder}" BorderThickness="1">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding BottomLeftTabs.Count, ElementName=root}" Value="0">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <local:TabView x:Name="BottomLeftTabPanel"/>
+                            </Border>
+                            <GridSplitter Grid.Column="1">
+                                <GridSplitter.Style>
+                                    <Style TargetType="GridSplitter">
+                                        <Style.Triggers>
+                                            <DataTrigger  Binding="{Binding BottomLeftTabs.Count}" Value="0" >
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                            <DataTrigger  Binding="{Binding BottomRightTabs.Count}" Value="0" >
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </GridSplitter.Style>
+                            </GridSplitter>
+                            <Border Grid.Column="2" BorderBrush="{StaticResource LightBorder}" BorderThickness="1">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding BottomRightTabs.Count, ElementName=root}" Value="0">
+                                                <Setter Property="Visibility" Value="Collapsed" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <local:TabView x:Name="BottomRightTabPanel"/>
+                            </Border>
+                        </Grid>
                     </Grid>
-                    <GridSplitter Grid.Row="1"/>
-                    <Grid Grid.Row="2">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="6"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
-                        <local:TabView Grid.Column="0" Margin="-3" />
-                        <GridSplitter Grid.Column="1" />
-                        <local:TabView Grid.Column="2" Margin="-3" />
-                    </Grid>
-                </Grid>
+                </Border>
+                
+                
+                
+                
+                
+                
+                
                 <GridSplitter Grid.Column="3" Visibility="{Binding RightOrVisibility, ElementName=root, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                
+                
+                
+            
                 <Grid Grid.Column="4">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="{Binding RightTopSize, ElementName=root, Mode=TwoWay, Delay=500}"/>
@@ -244,7 +412,7 @@
                                 <Setter Property="Margin" Value="-3,-3,0,-3" />
                             </Style>
                         </Border.Style>
-                        <local:ToolView/>
+                        <local:ToolView x:Name="RightTopToolPanel"/>
                     </Border>
                     <GridSplitter Grid.Row="1" />
                     <Border Grid.Row="2" Visibility="{Binding RightBottomVisibility ,ElementName=root,Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -255,7 +423,7 @@
                                 <Setter Property="Margin" Value="-3,-3,0,-3" />
                             </Style>
                         </Border.Style>
-                        <local:ToolView/>
+                        <local:ToolView x:Name="RightBottomToolPanel"/>
                     </Border>
                 </Grid>
             </Grid>
@@ -280,7 +448,7 @@
                             </Style.Triggers>
                         </Style>
                     </Border.Style>
-                    <local:ToolView/>
+                    <local:ToolView x:Name="BottomLeftToolPanel"/>
                 </Border>
                 <GridSplitter Grid.Column="1" />
                 <Border Grid.Column="2" Visibility="{Binding BottomRightVisibility ,ElementName=root,Converter={StaticResource BooleanToVisibilityConverter}}">
@@ -297,7 +465,7 @@
                             </Style.Triggers>
                         </Style>
                     </Border.Style>
-                    <local:ToolView/>
+                    <local:ToolView x:Name="BottomRightToolPanel"/>
                 </Border>
             </Grid>
         </Grid>

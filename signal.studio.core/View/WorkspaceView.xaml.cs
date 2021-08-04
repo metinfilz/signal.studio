@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -45,6 +47,58 @@ namespace SignalStudio.Core {
 
         }
 
+        public void AddTab(string header) {
+            TopLeftTabs.Add(new TabItem { Header = header });
+        }
+
+        public void AddTool<T>(ToolPosition position, string header) {
+            switch (position) {
+                case ToolPosition.LeftTop:
+                    var lt = new ToggleButton { Content = header, CommandParameter = ToolPosition.LeftTop, Tag = typeof(T) };
+                    lt.Click += (s, e) => {
+                        var control = s as ToggleButton;
+                        if (!(bool)control.IsChecked) {
+                            LeftTopButtons.ToList().ForEach(i => i.IsChecked = false);
+                        } else {
+                            LeftTopButtons.ToList().ForEach(i => i.IsChecked = false);
+                            control.IsChecked = true;
+                        }
+                        LeftTopVisibility = (bool)control.IsChecked;
+                    };
+                    LeftTopButtons.Add(lt);
+                    break;
+                case ToolPosition.LeftBottom:
+                    var lb = new ToggleButton { Content = header, CommandParameter = ToolPosition.LeftBottom, Tag = typeof(T) };
+                    lb.Click += (s, e) => {
+                        var control = s as ToggleButton;
+                        if (!(bool)control.IsChecked) {
+                            LeftBottomButtons.ToList().ForEach(i => i.IsChecked = false);
+                        } else {
+                            LeftBottomButtons.ToList().ForEach(i => i.IsChecked = false);
+                            control.IsChecked = true;
+                        }
+                        LeftBottomVisibility = (bool)control.IsChecked;
+                    };
+
+                    LeftBottomButtons.Add(lb);
+                    break;
+                case ToolPosition.TopLeft:
+                    break;
+                case ToolPosition.TopRight:
+                    break;
+                case ToolPosition.RightTop:
+                    break;
+                case ToolPosition.RightBottom:
+                    break;
+                case ToolPosition.BottomLeft:
+                    break;
+                case ToolPosition.BottomRight:
+                    break;
+                default:
+                    break;
+            }
+        }
+
         private bool _isMoving;
         private Point? _buttonPosition;
         private double deltaX;
@@ -54,20 +108,70 @@ namespace SignalStudio.Core {
         public WorkspaceView() {
             InitializeComponent();
 
-            ToolButtonCommand = new RelayCommand(ToolButtonCommandAction);
+            TopLeftTabPanel.tabControl.ItemsSource = TopLeftTabs;
+            TopRightTabPanel.tabControl.ItemsSource = TopRightTabs;
+            BottomLeftTabPanel.tabControl.ItemsSource = BottomLeftTabs;
+            BottomRightTabPanel.tabControl.ItemsSource = BottomRightTabs;
 
-            var tl = new ToggleButton { Content = "Top Left", Command = ToolButtonCommand, CommandParameter = ToolPosition.TopLeft };
-            TopLeftButtons.Add(tl);
-            TopRightButtons.Add(new ToggleButton { Content = "Top Right", Command = ToolButtonCommand, CommandParameter = ToolPosition.TopRight });
-            BottomLeftButtons.Add(new ToggleButton { Content = "Bottom Left", Command = ToolButtonCommand, CommandParameter = ToolPosition.BottomLeft });
-            BottomRightButtons.Add(new ToggleButton { Content = "Bottom Right", Command = ToolButtonCommand, CommandParameter = ToolPosition.BottomRight });
-            LeftTopButtons.Add(new ToggleButton { Content = "Left Top", Command = ToolButtonCommand, CommandParameter = ToolPosition.LeftTop });
-            LeftBottomButtons.Add(new ToggleButton { Content = "Left Bottom", Command = ToolButtonCommand, CommandParameter = ToolPosition.LeftBottom });
-            RightTopButtons.Add(new ToggleButton { Content = "Right Top", Command = ToolButtonCommand, CommandParameter = ToolPosition.RightTop });
-            RightBottomButtons.Add(new ToggleButton { Content = "Right Bottom", Command = ToolButtonCommand, CommandParameter = ToolPosition.RightBottom });
+            TopLeftTabPanel.TabCloseRequest += (s, e) => {
+                TopLeftTabs.Remove(e);
+            };
+            TopRightTabPanel.TabCloseRequest += (s, e) => {
+                TopRightTabs.Remove(e);
+            };
+            BottomLeftTabPanel.TabCloseRequest += (s, e) => {
+                BottomLeftTabs.Remove(e);
+            };
+            BottomRightTabPanel.TabCloseRequest += (s, e) => {
+                BottomRightTabs.Remove(e);
+            };
+
+
+
+            LeftTopToolPanel.ToolCloseRequest += (s, e) => {
+                LeftTopButtons.ToList().ForEach(i => i.IsChecked = false);
+                LeftTopVisibility = false;
+            };
+            LeftBottomToolPanel.ToolCloseRequest += (s, e) => {
+                LeftBottomButtons.ToList().ForEach(i => i.IsChecked = false);
+                LeftBottomVisibility = false;
+            };
+            RightTopToolPanel.ToolCloseRequest += (s, e) => {
+                RightTopButtons.ToList().ForEach(i => i.IsChecked = false);
+                RightTopVisibility = false;
+            };
+            RightBottomToolPanel.ToolCloseRequest += (s, e) => {
+                RightBottomButtons.ToList().ForEach(i => i.IsChecked = false);
+                RightBottomVisibility = false;
+            };
+            TopLeftToolPanel.ToolCloseRequest += (s, e) => {
+                TopLeftButtons.ToList().ForEach(i => i.IsChecked = false);
+                TopLeftVisibility = false;
+            };
+            TopRightToolPanel.ToolCloseRequest += (s, e) => {
+                TopRightButtons.ToList().ForEach(i => i.IsChecked = false);
+                TopRightVisibility = false;
+            };
+            BottomLeftToolPanel.ToolCloseRequest += (s, e) => {
+                BottomLeftButtons.ToList().ForEach(i => i.IsChecked = false);
+                BottomLeftVisibility = false;
+            };
+            BottomRightToolPanel.ToolCloseRequest += (s, e) => {
+                BottomRightButtons.ToList().ForEach(i => i.IsChecked = false);
+                BottomRightVisibility = false;
+            };
+
+            ToolButtonCommand = new RelayCommand(ToolButtonCommandAction);
         }
     }
     public partial class WorkspaceView {
+        public ObservableCollection<TabItem> TopLeftTabs { get; } = new ObservableCollection<TabItem>();
+        public ObservableCollection<TabItem> TopRightTabs { get; } = new ObservableCollection<TabItem>();
+        public ObservableCollection<TabItem> BottomLeftTabs { get; } = new ObservableCollection<TabItem>();
+        public ObservableCollection<TabItem> BottomRightTabs { get; } = new ObservableCollection<TabItem>();
+
+
+
         public ObservableCollection<ToggleButton> LeftTopButtons { get; } = new ObservableCollection<ToggleButton>();
         public ObservableCollection<ToggleButton> LeftBottomButtons { get; } = new ObservableCollection<ToggleButton>();
         public ObservableCollection<ToggleButton> RightTopButtons { get; } = new ObservableCollection<ToggleButton>();

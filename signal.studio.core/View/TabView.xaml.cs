@@ -14,11 +14,14 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace SignalStudio.Core {
-    /// <summary>
-    /// Interaction logic for TabView.xaml
-    /// </summary>
     public partial class TabView : UserControl {
+        internal event EventHandler<TabItem> TabCloseRequest;
+        public RelayCommand TabCloseCommand { get; }
+        private void OnTabCloseRequest(TabItem item) {
+            TabCloseRequest?.Invoke(this, item);
+        }
         public TabView() {
+            TabCloseCommand = new RelayCommand(t => OnTabCloseRequest((TabItem)t));
             InitializeComponent();
         }
     }
