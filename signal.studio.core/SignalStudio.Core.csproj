@@ -57,16 +57,21 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="RelayCommand.cs" />
+    <Compile Include="Resource\Resource.cs" />
+    <Compile Include="Resource\Sketch.xaml.cs">
+      <DependentUpon>Sketch.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Service\Resolver.cs" />
     <Compile Include="Schema.cs" />
+    <Compile Include="Util\Converters.cs" />
     <Compile Include="View\TabView.xaml.cs">
       <DependentUpon>TabView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ToolView.xaml.cs">
-      <DependentUpon>ToolView.xaml</DependentUpon>
+    <Compile Include="View\ToolPanelView.xaml.cs">
+      <DependentUpon>ToolPanelView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\WorkspaceView.xaml.cs">
-      <DependentUpon>WorkspaceView.xaml</DependentUpon>
+    <Compile Include="View\ToolContainerView.xaml.cs">
+      <DependentUpon>ToolContainerView.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -80,15 +85,27 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Resource\Icon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resource\Resource.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resource\Sketch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\TabView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ToolView.xaml">
+    <Page Include="View\ToolPanelView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\WorkspaceView.xaml">
+    <Page Include="View\ToolContainerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -116,6 +133,21 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Resource Include="Resource\Font\Roboto\Roboto-Black.ttf" />
+    <Resource Include="Resource\Font\Roboto\Roboto-BlackItalic.ttf" />
+    <Resource Include="Resource\Font\Roboto\Roboto-Bold.ttf" />
+    <Resource Include="Resource\Font\Roboto\Roboto-BoldItalic.ttf" />
+    <Resource Include="Resource\Font\Roboto\Roboto-Italic.ttf" />
+    <Resource Include="Resource\Font\Roboto\Roboto-Light.ttf" />
+    <Resource Include="Resource\Font\Roboto\Roboto-LightItalic.ttf" />
+    <Resource Include="Resource\Font\Roboto\Roboto-Medium.ttf" />
+    <Resource Include="Resource\Font\Roboto\Roboto-MediumItalic.ttf" />
+    <Resource Include="Resource\Font\Roboto\Roboto-Regular.ttf" />
+    <Resource Include="Resource\Font\Roboto\Roboto-Thin.ttf" />
+    <Resource Include="Resource\Font\Roboto\Roboto-ThinItalic.ttf" />
+    <None Include="Resource\Icon\Material.Icon">
+      <Generator>MSBuild:Compile</Generator>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -125,6 +157,8 @@
       <Version>6.2.0</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resource\Font\Roboto\LICENSE.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

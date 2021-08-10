@@ -13,13 +13,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace SignalStudio.Core {
-    public partial class ToolView : UserControl {
-        internal event EventHandler ToolCloseRequest;
-        private void OnToolCloseRequest() {
-            ToolCloseRequest?.Invoke(this, EventArgs.Empty);
-        }
-        public ToolView() {
+namespace SignalStudio.Core.Resource {
+    /// <summary>
+    /// Interaction logic for Sketch.xaml
+    /// </summary>
+    public partial class Sketch : UserControl {
+        public Sketch() {
             InitializeComponent();
         }
     }

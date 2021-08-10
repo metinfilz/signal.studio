@@ -14,12 +14,17 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace SignalStudio.Core {
-    /// <summary>
-    /// Interaction logic for MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window {
         public MainWindow() {
-            InitializeComponent();
+            this.InitializeComponent();
+            tool.AddTool<bool>(ToolPosition.LeftTop, "Solution");
+            tool.AddTool<bool>(ToolPosition.LeftBottom, "Settings");
+            tool.AddTool<bool>(ToolPosition.RightTop, "RightTop");
+            tool.AddTool<bool>(ToolPosition.RightBottom, "RightBottom");
+            tool.AddTool<bool>(ToolPosition.BottomLeft, "Terminal");
+            tool.AddTool<bool>(ToolPosition.BottomRight, "BottomRight");
+            tool.AddTool<bool>(ToolPosition.TopLeft, "TopLeft");
+            tool.AddTool<bool>(ToolPosition.TopRight, "TopRight");
         }
     }
 }

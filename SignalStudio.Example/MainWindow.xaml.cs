@@ -21,10 +21,14 @@ namespace SignalStudio.Example {
             InitializeComponent();
 
 
-            SignalStudio.AddTool<SolutionTool>(ToolPosition.LeftTop, "Solution");
-            SignalStudio.AddTool<SolutionTool>(ToolPosition.LeftBottom, "Settings");
-            SignalStudio.AddTool<SolutionTool>(ToolPosition.LeftBottom, "Device");
-            SignalStudio.AddTab("Test");
+            tool.AddTool<SolutionTool>(ToolPosition.LeftTop, "Solution");
+            tool.AddTool<SolutionTool>(ToolPosition.LeftBottom, "Settings");
+            tool.AddTool<SolutionTool>(ToolPosition.RightTop, "RightTop");
+            tool.AddTool<SolutionTool>(ToolPosition.RightBottom, "RightBottom");
+            tool.AddTool<SolutionTool>(ToolPosition.BottomLeft, "BottomLeft");
+            tool.AddTool<SolutionTool>(ToolPosition.BottomRight, "BottomRight");
+            tool.AddTool<SolutionTool>(ToolPosition.TopLeft, "TopLeft");
+            tool.AddTool<SolutionTool>(ToolPosition.TopRight, "TopRight");
         }
     }
 }

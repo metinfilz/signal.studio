@@ -8,6 +8,6 @@
         mc:Ignorable="d" Background="White"
         Title="Example" Height="450" Width="800">
     <Grid>
-        <core:WorkspaceView x:Name="SignalStudio" Margin="16" />
+        <local:ToolContainerView x:Name="SignalStudio" Margin="16" />
     </Grid>
 </Window>

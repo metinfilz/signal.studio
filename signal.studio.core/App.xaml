@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:SignalStudio.Core"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <FontFamily x:Key="Roboto">pack://application:,,,/Resource/Font/Roboto/#Roboto</FontFamily>        
+        
     </Application.Resources>
 </Application>

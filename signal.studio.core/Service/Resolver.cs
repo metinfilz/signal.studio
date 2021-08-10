@@ -6,6 +6,7 @@ namespace SignalStudio.Core {
         private static IContainer Container { get; set; }
         private static void Build() {
             var builder = new ContainerBuilder();
+
             Container = builder.Build();
             BuildState = true;
         }

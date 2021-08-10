@@ -2,17 +2,53 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
+using System.Windows.Data;
 using System.Windows.Input;
-using System.Windows.Media;
 
 namespace SignalStudio.Core {
-    public partial class WorkspaceView : UserControl {
+    public partial class ToolContainerView : UserControl {
+        public ToolContainerView() {
+            InitializeComponent();
+            LeftTopToolPanel.ToolCloseRequest += (s, e) => {
+                LeftTopButtons.ToList().ForEach(i => i.IsChecked = false);
+                LeftTopVisibility = false;
+            };
+            LeftBottomToolPanel.ToolCloseRequest += (s, e) => {
+                LeftBottomButtons.ToList().ForEach(i => i.IsChecked = false);
+                LeftBottomVisibility = false;
+            };
+            RightTopToolPanel.ToolCloseRequest += (s, e) => {
+                RightTopButtons.ToList().ForEach(i => i.IsChecked = false);
+                RightTopVisibility = false;
+            };
+            RightBottomToolPanel.ToolCloseRequest += (s, e) => {
+                RightBottomButtons.ToList().ForEach(i => i.IsChecked = false);
+                RightBottomVisibility = false;
+            };
+            TopLeftToolPanel.ToolCloseRequest += (s, e) => {
+                TopLeftButtons.ToList().ForEach(i => i.IsChecked = false);
+                TopLeftVisibility = false;
+            };
+            TopRightToolPanel.ToolCloseRequest += (s, e) => {
+                TopRightButtons.ToList().ForEach(i => i.IsChecked = false);
+                TopRightVisibility = false;
+            };
+            BottomLeftToolPanel.ToolCloseRequest += (s, e) => {
+                BottomLeftButtons.ToList().ForEach(i => i.IsChecked = false);
+                BottomLeftVisibility = false;
+            };
+            BottomRightToolPanel.ToolCloseRequest += (s, e) => {
+                BottomRightButtons.ToList().ForEach(i => i.IsChecked = false);
+                BottomRightVisibility = false;
+            };
+            ToolButtonCommand = new RelayCommand(ToolButtonCommandAction);
+        }
         public RelayCommand ToolButtonCommand { get; }
         private void ToolButtonCommandAction(object param) {
             var pos = (ToolPosition)param;
@@ -46,11 +82,6 @@ namespace SignalStudio.Core {
             }
 
         }
-
-        public void AddTab(string header) {
-            TopLeftTabs.Add(new TabItem { Header = header });
-        }
-
         public void AddTool<T>(ToolPosition position, string header) {
             switch (position) {
                 case ToolPosition.LeftTop:
@@ -79,99 +110,99 @@ namespace SignalStudio.Core {
                         }
                         LeftBottomVisibility = (bool)control.IsChecked;
                     };
-
                     LeftBottomButtons.Add(lb);
                     break;
                 case ToolPosition.TopLeft:
+                    var tl = new ToggleButton { Content = header, CommandParameter = ToolPosition.TopLeft, Tag = typeof(T) };
+                    tl.Click += (s, e) => {
+                        var control = s as ToggleButton;
+                        if (!(bool)control.IsChecked) {
+                            TopLeftButtons.ToList().ForEach(i => i.IsChecked = false);
+                        } else {
+                            TopLeftButtons.ToList().ForEach(i => i.IsChecked = false);
+                            control.IsChecked = true;
+                        }
+                        TopLeftVisibility = (bool)control.IsChecked;
+                    };
+                    TopLeftButtons.Add(tl);
                     break;
                 case ToolPosition.TopRight:
+                    var tr = new ToggleButton { Content = header, CommandParameter = ToolPosition.TopRight, Tag = typeof(T) };
+                    tr.Click += (s, e) => {
+                        var control = s as ToggleButton;
+                        if (!(bool)control.IsChecked) {
+                            TopRightButtons.ToList().ForEach(i => i.IsChecked = false);
+                        } else {
+                            TopRightButtons.ToList().ForEach(i => i.IsChecked = false);
+                            control.IsChecked = true;
+                        }
+                        TopRightVisibility = (bool)control.IsChecked;
+                    };
+                    TopRightButtons.Add(tr);
                     break;
                 case ToolPosition.RightTop:
+                    var rt = new ToggleButton { Content = header, CommandParameter = ToolPosition.RightTop, Tag = typeof(T) };
+                    rt.Click += (s, e) => {
+                        var control = s as ToggleButton;
+                        if (!(bool)control.IsChecked) {
+                            RightTopButtons.ToList().ForEach(i => i.IsChecked = false);
+                        } else {
+                            RightTopButtons.ToList().ForEach(i => i.IsChecked = false);
+                            control.IsChecked = true;
+                        }
+                        RightTopVisibility = (bool)control.IsChecked;
+                    };
+                    RightTopButtons.Add(rt);
                     break;
                 case ToolPosition.RightBottom:
+                    var rb = new ToggleButton { Content = header, CommandParameter = ToolPosition.RightBottom, Tag = typeof(T) };
+                    rb.Click += (s, e) => {
+                        var control = s as ToggleButton;
+                        if (!(bool)control.IsChecked) {
+                            RightBottomButtons.ToList().ForEach(i => i.IsChecked = false);
+                        } else {
+                            RightBottomButtons.ToList().ForEach(i => i.IsChecked = false);
+                            control.IsChecked = true;
+                        }
+                        RightBottomVisibility = (bool)control.IsChecked;
+                    };
+                    RightBottomButtons.Add(rb);
+
                     break;
                 case ToolPosition.BottomLeft:
+                    var bl = new ToggleButton { Content = header, CommandParameter = ToolPosition.BottomLeft, Tag = typeof(T) };
+                    bl.Click += (s, e) => {
+                        var control = s as ToggleButton;
+                        if (!(bool)control.IsChecked) {
+                            BottomLeftButtons.ToList().ForEach(i => i.IsChecked = false);
+                        } else {
+                            BottomLeftButtons.ToList().ForEach(i => i.IsChecked = false);
+                            control.IsChecked = true;
+                        }
+                        BottomLeftVisibility = (bool)control.IsChecked;
+                    };
+                    BottomLeftButtons.Add(bl);
                     break;
                 case ToolPosition.BottomRight:
+                    var br = new ToggleButton { Content = header, CommandParameter = ToolPosition.BottomRight, Tag = typeof(T) };
+                    br.Click += (s, e) => {
+                        var control = s as ToggleButton;
+                        if (!(bool)control.IsChecked) {
+                            BottomRightButtons.ToList().ForEach(i => i.IsChecked = false);
+                        } else {
+                            BottomRightButtons.ToList().ForEach(i => i.IsChecked = false);
+                            control.IsChecked = true;
+                        }
+                        BottomRightVisibility = (bool)control.IsChecked;
+                    };
+                    BottomRightButtons.Add(br);
                     break;
                 default:
                     break;
             }
         }
-
-        private bool _isMoving;
-        private Point? _buttonPosition;
-        private double deltaX;
-        private double deltaY;
-        private TranslateTransform _currentTT;
-
-        public WorkspaceView() {
-            InitializeComponent();
-
-            TopLeftTabPanel.tabControl.ItemsSource = TopLeftTabs;
-            TopRightTabPanel.tabControl.ItemsSource = TopRightTabs;
-            BottomLeftTabPanel.tabControl.ItemsSource = BottomLeftTabs;
-            BottomRightTabPanel.tabControl.ItemsSource = BottomRightTabs;
-
-            TopLeftTabPanel.TabCloseRequest += (s, e) => {
-                TopLeftTabs.Remove(e);
-            };
-            TopRightTabPanel.TabCloseRequest += (s, e) => {
-                TopRightTabs.Remove(e);
-            };
-            BottomLeftTabPanel.TabCloseRequest += (s, e) => {
-                BottomLeftTabs.Remove(e);
-            };
-            BottomRightTabPanel.TabCloseRequest += (s, e) => {
-                BottomRightTabs.Remove(e);
-            };
-
-
-
-            LeftTopToolPanel.ToolCloseRequest += (s, e) => {
-                LeftTopButtons.ToList().ForEach(i => i.IsChecked = false);
-                LeftTopVisibility = false;
-            };
-            LeftBottomToolPanel.ToolCloseRequest += (s, e) => {
-                LeftBottomButtons.ToList().ForEach(i => i.IsChecked = false);
-                LeftBottomVisibility = false;
-            };
-            RightTopToolPanel.ToolCloseRequest += (s, e) => {
-                RightTopButtons.ToList().ForEach(i => i.IsChecked = false);
-                RightTopVisibility = false;
-            };
-            RightBottomToolPanel.ToolCloseRequest += (s, e) => {
-                RightBottomButtons.ToList().ForEach(i => i.IsChecked = false);
-                RightBottomVisibility = false;
-            };
-            TopLeftToolPanel.ToolCloseRequest += (s, e) => {
-                TopLeftButtons.ToList().ForEach(i => i.IsChecked = false);
-                TopLeftVisibility = false;
-            };
-            TopRightToolPanel.ToolCloseRequest += (s, e) => {
-                TopRightButtons.ToList().ForEach(i => i.IsChecked = false);
-                TopRightVisibility = false;
-            };
-            BottomLeftToolPanel.ToolCloseRequest += (s, e) => {
-                BottomLeftButtons.ToList().ForEach(i => i.IsChecked = false);
-                BottomLeftVisibility = false;
-            };
-            BottomRightToolPanel.ToolCloseRequest += (s, e) => {
-                BottomRightButtons.ToList().ForEach(i => i.IsChecked = false);
-                BottomRightVisibility = false;
-            };
-
-            ToolButtonCommand = new RelayCommand(ToolButtonCommandAction);
-        }
     }
-    public partial class WorkspaceView {
-        public ObservableCollection<TabItem> TopLeftTabs { get; } = new ObservableCollection<TabItem>();
-        public ObservableCollection<TabItem> TopRightTabs { get; } = new ObservableCollection<TabItem>();
-        public ObservableCollection<TabItem> BottomLeftTabs { get; } = new ObservableCollection<TabItem>();
-        public ObservableCollection<TabItem> BottomRightTabs { get; } = new ObservableCollection<TabItem>();
-
-
-
+    public partial class ToolContainerView {
         public ObservableCollection<ToggleButton> LeftTopButtons { get; } = new ObservableCollection<ToggleButton>();
         public ObservableCollection<ToggleButton> LeftBottomButtons { get; } = new ObservableCollection<ToggleButton>();
         public ObservableCollection<ToggleButton> RightTopButtons { get; } = new ObservableCollection<ToggleButton>();
@@ -181,7 +212,7 @@ namespace SignalStudio.Core {
         public ObservableCollection<ToggleButton> BottomLeftButtons { get; } = new ObservableCollection<ToggleButton>();
         public ObservableCollection<ToggleButton> BottomRightButtons { get; } = new ObservableCollection<ToggleButton>();
     }
-    public partial class WorkspaceView {
+    public partial class ToolContainerView {
         private bool leftTopVisibility = false;
         private bool leftBottomVisibility = false;
         private bool rightTopVisibility = false;
@@ -190,35 +221,24 @@ namespace SignalStudio.Core {
         private bool topRightVisibility = false;
         private bool bottomLeftVisibility = false;
         private bool bottomRightVisibility = false;
-
         public bool LeftAndVisibility => leftTopVisibility && leftBottomVisibility;
         public bool RightAndVisibility => rightTopVisibility && rightBottomVisibility;
         public bool TopAndVisibility => topLeftVisibility && topRightVisibility;
         public bool BottomAndVisibility => bottomLeftVisibility && bottomRightVisibility;
-
         public bool LeftOrVisibility => leftTopVisibility || leftBottomVisibility;
         public bool RightOrVisibility => rightTopVisibility || rightBottomVisibility;
         public bool TopOrVisibility => topLeftVisibility || topRightVisibility;
         public bool BottomOrVisibility => bottomLeftVisibility || bottomRightVisibility;
-
-
         public bool LeftTopVisibility {
             get => leftTopVisibility; set {
                 SetProperty(ref leftTopVisibility, value);
                 RaisePropertyChanged("LeftAndVisibility");
                 RaisePropertyChanged("LeftOrVisibility");
-
-                if (!value) {
+                if (value) {
+                    LeftTopSize = leftTopSizeCache;
+                } else {
                     leftTopSizeCache = leftTopSize;
-                    SetProperty(ref leftTopSize, new GridLength(0, GridUnitType.Star), "LeftTopSize");
-                } else {
-                    SetProperty(ref leftTopSize, leftTopSizeCache, "LeftTopSize");
-                }
-                if (!value && !leftBottomVisibility) {
-                    leftSizeCache = leftSize;
-                    SetProperty(ref leftSize, new GridLength(0, GridUnitType.Star), "LeftSize");
-                } else {
-                    SetProperty(ref leftSize, leftSizeCache, "LeftSize");
+                    LeftTopSize = new GridLength(0, GridUnitType.Star);
                 }
             }
         }
@@ -227,20 +247,12 @@ namespace SignalStudio.Core {
                 SetProperty(ref leftBottomVisibility, value);
                 RaisePropertyChanged("LeftAndVisibility");
                 RaisePropertyChanged("LeftOrVisibility");
-
-                if (!value) {
+                if (value) {
+                    LeftBottomSize = leftBottomSizeCache;
+                } else {
                     leftBottomSizeCache = leftBottomSize;
-                    SetProperty(ref leftBottomSize, new GridLength(0, GridUnitType.Star), "LeftBottomSize");
-                } else {
-                    SetProperty(ref leftBottomSize, leftBottomSizeCache, "LeftBottomSize");
+                    LeftBottomSize = new GridLength(0, GridUnitType.Star);
                 }
-                if (!value && !leftTopVisibility) {
-                    leftSizeCache = leftSize;
-                    SetProperty(ref leftSize, new GridLength(0, GridUnitType.Star), "LeftSize");
-                } else {
-                    SetProperty(ref leftSize, leftSizeCache, "LeftSize");
-                }
-
             }
         }
         public bool RightTopVisibility {
@@ -248,19 +260,12 @@ namespace SignalStudio.Core {
                 SetProperty(ref rightTopVisibility, value);
                 RaisePropertyChanged("RightAndVisibility");
                 RaisePropertyChanged("RightOrVisibility");
-                if (!value) {
+                if (value) {
+                    RightTopSize = rightTopSizeCache;
+                } else {
                     rightTopSizeCache = rightTopSize;
-                    SetProperty(ref rightTopSize, new GridLength(0, GridUnitType.Star), "RightTopSize");
-                } else {
-                    SetProperty(ref rightTopSize, rightTopSizeCache, "RightTopSize");
+                    RightTopSize = new GridLength(0, GridUnitType.Star);
                 }
-                if (!value && !rightBottomVisibility) {
-                    rightSizeCache = rightSize;
-                    SetProperty(ref rightSize, new GridLength(0, GridUnitType.Star), "RightSize");
-                } else {
-                    SetProperty(ref rightSize, rightSizeCache, "RightSize");
-                }
-
             }
         }
         public bool RightBottomVisibility {
@@ -268,20 +273,12 @@ namespace SignalStudio.Core {
                 SetProperty(ref rightBottomVisibility, value);
                 RaisePropertyChanged("RightAndVisibility");
                 RaisePropertyChanged("RightOrVisibility");
-
-                if (!value) {
+                if (value) {
+                    RightBottomSize = rightBottomSizeCache;
+                } else {
                     rightBottomSizeCache = rightBottomSize;
-                    SetProperty(ref rightBottomSize, new GridLength(0, GridUnitType.Star), "RightBottomSize");
-                } else {
-                    SetProperty(ref rightBottomSize, rightBottomSizeCache, "RightBottomSize");
+                    RightBottomSize = new GridLength(0, GridUnitType.Star);
                 }
-                if (!value && !rightTopVisibility) {
-                    rightSizeCache = rightSize;
-                    SetProperty(ref rightSize, new GridLength(0, GridUnitType.Star), "RightSize");
-                } else {
-                    SetProperty(ref rightSize, rightSizeCache, "RightSize");
-                }
-
             }
         }
         public bool TopLeftVisibility {
@@ -289,17 +286,11 @@ namespace SignalStudio.Core {
                 SetProperty(ref topLeftVisibility, value);
                 RaisePropertyChanged("TopAndVisibility");
                 RaisePropertyChanged("TopOrVisibility");
-                if (!value) {
+                if (value) {
+                    TopLeftSize = topLeftSizeCache;
+                } else {
                     topLeftSizeCache = topLeftSize;
-                    SetProperty(ref topLeftSize, new GridLength(0, GridUnitType.Star), "TopLeftSize");
-                } else {
-                    SetProperty(ref topLeftSize, topLeftSizeCache, "TopLeftSize");
-                }
-                if(!value && !topRightVisibility) {
-                    topSizeCache = topSize;
-                    SetProperty(ref topSize, new GridLength(0, GridUnitType.Star), "TopSize");
-                } else {
-                    SetProperty(ref topSize, topSizeCache, "TopSize");
+                    TopLeftSize = new GridLength(0, GridUnitType.Star);
                 }
             }
         }
@@ -308,17 +299,11 @@ namespace SignalStudio.Core {
                 SetProperty(ref topRightVisibility, value);
                 RaisePropertyChanged("TopAndVisibility");
                 RaisePropertyChanged("TopOrVisibility");
-                if (!value) {
+                if (value) {
+                    TopRightSize = topRightSizeCache;
+                } else {
                     topRightSizeCache = topRightSize;
-                    SetProperty(ref topRightSize, new GridLength(0, GridUnitType.Star), "TopRightSize");
-                } else {
-                    SetProperty(ref topRightSize, topRightSizeCache, "TopRightSize");
-                }
-                if (!value && !topLeftVisibility) {
-                    topSizeCache = topSize;
-                    SetProperty(ref topSize, new GridLength(0, GridUnitType.Star), "TopSize");
-                } else {
-                    SetProperty(ref topSize, topSizeCache, "TopSize");
+                    TopRightSize = new GridLength(0, GridUnitType.Star);
                 }
             }
         }
@@ -327,17 +312,11 @@ namespace SignalStudio.Core {
                 SetProperty(ref bottomLeftVisibility, value);
                 RaisePropertyChanged("BottomAndVisibility");
                 RaisePropertyChanged("BottomOrVisibility");
-                if (!value) {
+                if (value) {
+                    BottomLeftSize = bottomLeftSizeCache;
+                } else {
                     bottomLeftSizeCache = bottomLeftSize;
-                    SetProperty(ref bottomLeftSize, new GridLength(0, GridUnitType.Star), "BottomLeftSize");
-                } else {
-                    SetProperty(ref bottomLeftSize, bottomLeftSizeCache, "BottomLeftSize");
-                }
-                if (!value && !bottomRightVisibility) {
-                    bottomSizeCache = bottomSize;
-                    SetProperty(ref bottomSize, new GridLength(0, GridUnitType.Star), "BottomSize");
-                } else {
-                    SetProperty(ref bottomSize, bottomSizeCache, "BottomSize");
+                    BottomLeftSize = new GridLength(0, GridUnitType.Star);
                 }
             }
         }
@@ -346,22 +325,16 @@ namespace SignalStudio.Core {
                 SetProperty(ref bottomRightVisibility, value);
                 RaisePropertyChanged("BottomAndVisibility");
                 RaisePropertyChanged("BottomOrVisibility");
-                if (!value) {
+                if (value) {
+                    BottomRightSize = bottomRightSizeCache;
+                } else {
                     bottomRightSizeCache = bottomRightSize;
-                    SetProperty(ref bottomRightSize, new GridLength(0, GridUnitType.Star), "BottomRightSize");
-                } else {
-                    SetProperty(ref bottomRightSize, bottomRightSizeCache, "BottomRightSize");
-                }
-                if (!value && !bottomLeftVisibility) {
-                    bottomSizeCache = bottomSize;
-                    SetProperty(ref bottomSize, new GridLength(0, GridUnitType.Star), "BottomSize");
-                } else {
-                    SetProperty(ref bottomSize, bottomSizeCache, "BottomSize");
+                    BottomRightSize = new GridLength(0, GridUnitType.Star);
                 }
             }
         }
     }
-    public partial class WorkspaceView {
+    public partial class ToolContainerView {
         private GridLength topSizeCache = new GridLength(1, GridUnitType.Star);
         private GridLength topLeftSizeCache = new GridLength(1, GridUnitType.Star);
         private GridLength topRightSizeCache = new GridLength(1, GridUnitType.Star);
@@ -395,30 +368,27 @@ namespace SignalStudio.Core {
         private GridLength rightTopSize;
         private GridLength rightBottomSize;
 
+        private GridLength centerSize = new GridLength(1, GridUnitType.Star);
 
         public GridLength TopSize { get => topSize; set => SetProperty(ref topSize, value); }
         public GridLength TopLeftSize { get => topLeftSize; set => SetProperty(ref topLeftSize, value); }
         public GridLength TopRightSize { get => topRightSize; set => SetProperty(ref topRightSize, value); }
-
         public GridLength BottomSize { get => bottomSize; set => SetProperty(ref bottomSize, value); }
         public GridLength BottomLeftSize { get => bottomLeftSize; set => SetProperty(ref bottomLeftSize, value); }
         public GridLength BottomRightSize { get => bottomRightSize; set => SetProperty(ref bottomRightSize, value); }
-
-
         public GridLength LeftSize { get => leftSize; set => SetProperty(ref leftSize, value); }
         public GridLength LeftTopSize { get => leftTopSize; set => SetProperty(ref leftTopSize, value); }
         public GridLength LeftBottomSize { get => leftBottomSize; set => SetProperty(ref leftBottomSize, value); }
-
         public GridLength RightSize { get => rightSize; set => SetProperty(ref rightSize, value); }
         public GridLength RightTopSize { get => rightTopSize; set => SetProperty(ref rightTopSize, value); }
         public GridLength RightBottomSize { get => rightBottomSize; set => SetProperty(ref rightBottomSize, value); }
-
+        public GridLength CenterSize { get => centerSize; set => SetProperty(ref centerSize, value); }
 
 
 
 
     }
-    public partial class WorkspaceView: INotifyPropertyChanged {
+    public partial class ToolContainerView : INotifyPropertyChanged {
         public event PropertyChangedEventHandler PropertyChanged;
         protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null) {
             if (!EqualityComparer<T>.Default.Equals(field, newValue)) {
@@ -432,4 +402,5 @@ namespace SignalStudio.Core {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
+
 }
