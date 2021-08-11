@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
-using System.Windows.Data;
 using System.Windows.Input;
+using System.Windows.Media.Animation;
+using System.Windows.Shapes;
 
 namespace SignalStudio.Core {
     public partial class ToolContainerView : UserControl {
@@ -201,6 +201,24 @@ namespace SignalStudio.Core {
                     break;
             }
         }
+        private void Rectangle_PreviewDragEnter(object sender, DragEventArgs e) {
+            var control = sender as Rectangle;
+            var animation = new DoubleAnimation { To = 0.5F, Duration = TimeSpan.FromMilliseconds(100) };
+            animation.Completed += (s, e) => control.Opacity = 0.5F;
+            control.BeginAnimation(OpacityProperty, animation);
+        }
+
+        private void Rectangle_PreviewDragLeave(object sender, DragEventArgs e) {
+            var control = sender as Rectangle;
+            var animation = new DoubleAnimation { To = 0.0F, Duration = TimeSpan.FromMilliseconds(100) };
+            animation.Completed += (s, e) => control.Opacity = 0.0F;
+            control.BeginAnimation(OpacityProperty, animation);
+        }
+
+        private void Grid_GiveFeedback(object sender, GiveFeedbackEventArgs e) {
+            Mouse.SetCursor(Cursors.Wait);
+            e.Handled = true;
+        }
     }
     public partial class ToolContainerView {
         public ObservableCollection<ToggleButton> LeftTopButtons { get; } = new ObservableCollection<ToggleButton>();
@@ -240,6 +258,12 @@ namespace SignalStudio.Core {
                     leftTopSizeCache = leftTopSize;
                     LeftTopSize = new GridLength(0, GridUnitType.Star);
                 }
+                if (LeftOrVisibility) {
+                    LeftSize = leftSizeCache;
+                } else {
+                    leftSizeCache = LeftSize;
+                    LeftSize = new GridLength(0, GridUnitType.Pixel);
+                }
             }
         }
         public bool LeftBottomVisibility {
@@ -252,6 +276,12 @@ namespace SignalStudio.Core {
                 } else {
                     leftBottomSizeCache = leftBottomSize;
                     LeftBottomSize = new GridLength(0, GridUnitType.Star);
+                }
+                if (LeftOrVisibility) {
+                    LeftSize = leftSizeCache;
+                } else {
+                    leftSizeCache = LeftSize;
+                    LeftSize = new GridLength(0, GridUnitType.Pixel);
                 }
             }
         }
@@ -266,6 +296,12 @@ namespace SignalStudio.Core {
                     rightTopSizeCache = rightTopSize;
                     RightTopSize = new GridLength(0, GridUnitType.Star);
                 }
+                if (RightOrVisibility) {
+                    RightSize = rightSizeCache;
+                } else {
+                    rightSizeCache = RightSize;
+                    RightSize = new GridLength(0, GridUnitType.Pixel);
+                }
             }
         }
         public bool RightBottomVisibility {
@@ -278,6 +314,12 @@ namespace SignalStudio.Core {
                 } else {
                     rightBottomSizeCache = rightBottomSize;
                     RightBottomSize = new GridLength(0, GridUnitType.Star);
+                }
+                if (RightOrVisibility) {
+                    RightSize = rightSizeCache;
+                } else {
+                    rightSizeCache = RightSize;
+                    RightSize = new GridLength(0, GridUnitType.Pixel);
                 }
             }
         }
@@ -292,6 +334,12 @@ namespace SignalStudio.Core {
                     topLeftSizeCache = topLeftSize;
                     TopLeftSize = new GridLength(0, GridUnitType.Star);
                 }
+                if (TopOrVisibility) {
+                    TopSize = topSizeCache;
+                } else {
+                    topSizeCache = TopSize;
+                    TopSize = new GridLength(0, GridUnitType.Pixel);
+                }
             }
         }
         public bool TopRightVisibility {
@@ -304,6 +352,12 @@ namespace SignalStudio.Core {
                 } else {
                     topRightSizeCache = topRightSize;
                     TopRightSize = new GridLength(0, GridUnitType.Star);
+                }
+                if (TopOrVisibility) {
+                    TopSize = topSizeCache;
+                } else {
+                    topSizeCache = TopSize;
+                    TopSize = new GridLength(0, GridUnitType.Pixel);
                 }
             }
         }
@@ -318,6 +372,12 @@ namespace SignalStudio.Core {
                     bottomLeftSizeCache = bottomLeftSize;
                     BottomLeftSize = new GridLength(0, GridUnitType.Star);
                 }
+                if (BottomOrVisibility) {
+                    BottomSize = bottomSizeCache;
+                } else {
+                    bottomSizeCache = BottomSize;
+                    BottomSize = new GridLength(0, GridUnitType.Pixel);
+                }
             }
         }
         public bool BottomRightVisibility {
@@ -331,23 +391,29 @@ namespace SignalStudio.Core {
                     bottomRightSizeCache = bottomRightSize;
                     BottomRightSize = new GridLength(0, GridUnitType.Star);
                 }
+                if (BottomOrVisibility) {
+                    BottomSize = bottomSizeCache;
+                } else {
+                    bottomSizeCache = BottomSize;
+                    BottomSize = new GridLength(0, GridUnitType.Auto);
+                }
             }
         }
     }
     public partial class ToolContainerView {
-        private GridLength topSizeCache = new GridLength(1, GridUnitType.Star);
+        private GridLength topSizeCache = new GridLength(1, GridUnitType.Auto);
         private GridLength topLeftSizeCache = new GridLength(1, GridUnitType.Star);
         private GridLength topRightSizeCache = new GridLength(1, GridUnitType.Star);
 
-        private GridLength bottomSizeCache = new GridLength(1, GridUnitType.Star);
+        private GridLength bottomSizeCache = new GridLength(1, GridUnitType.Auto);
         private GridLength bottomLeftSizeCache = new GridLength(1, GridUnitType.Star);
         private GridLength bottomRightSizeCache = new GridLength(1, GridUnitType.Star);
 
-        private GridLength leftSizeCache = new GridLength(1, GridUnitType.Star);
+        private GridLength leftSizeCache = new GridLength(1, GridUnitType.Auto);
         private GridLength leftTopSizeCache = new GridLength(1, GridUnitType.Star);
         private GridLength leftBottomSizeCache = new GridLength(1, GridUnitType.Star);
 
-        private GridLength rightSizeCache = new GridLength(1, GridUnitType.Star);
+        private GridLength rightSizeCache = new GridLength(1, GridUnitType.Auto);
         private GridLength rightTopSizeCache = new GridLength(1, GridUnitType.Star);
         private GridLength rightBottomSizeCache = new GridLength(1, GridUnitType.Star);
 
@@ -370,23 +436,54 @@ namespace SignalStudio.Core {
 
         private GridLength centerSize = new GridLength(1, GridUnitType.Star);
 
-        public GridLength TopSize { get => topSize; set => SetProperty(ref topSize, value); }
-        public GridLength TopLeftSize { get => topLeftSize; set => SetProperty(ref topLeftSize, value); }
+        public GridLength TopSize {
+            get => topSize; set {
+                SetProperty(ref topSize, value);
+                if (value.Value != 0) {
+                    topSizeCache = TopSize;
+                }
+            }
+        }
+        public GridLength TopLeftSize {
+            get => topLeftSize; set {
+                SetProperty(ref topLeftSize, value);
+            }
+        }
         public GridLength TopRightSize { get => topRightSize; set => SetProperty(ref topRightSize, value); }
-        public GridLength BottomSize { get => bottomSize; set => SetProperty(ref bottomSize, value); }
+        public GridLength BottomSize {
+            get => bottomSize; set {
+                SetProperty(ref bottomSize, value);
+                if (value.Value != 0) {
+                    bottomSizeCache = BottomSize;
+                }
+            }
+        }
         public GridLength BottomLeftSize { get => bottomLeftSize; set => SetProperty(ref bottomLeftSize, value); }
         public GridLength BottomRightSize { get => bottomRightSize; set => SetProperty(ref bottomRightSize, value); }
-        public GridLength LeftSize { get => leftSize; set => SetProperty(ref leftSize, value); }
+        public GridLength LeftSize {
+            get => leftSize; set {
+                SetProperty(ref leftSize, value);
+                if (value.Value != 0) {
+                    leftSizeCache = LeftSize;
+                }
+            }
+        }
         public GridLength LeftTopSize { get => leftTopSize; set => SetProperty(ref leftTopSize, value); }
         public GridLength LeftBottomSize { get => leftBottomSize; set => SetProperty(ref leftBottomSize, value); }
-        public GridLength RightSize { get => rightSize; set => SetProperty(ref rightSize, value); }
+        public GridLength RightSize {
+            get => rightSize; set {
+                SetProperty(ref rightSize, value);
+                if (value.Value != 0) {
+                    rightSizeCache = RightSize;
+                }
+            }
+        }
         public GridLength RightTopSize { get => rightTopSize; set => SetProperty(ref rightTopSize, value); }
         public GridLength RightBottomSize { get => rightBottomSize; set => SetProperty(ref rightBottomSize, value); }
         public GridLength CenterSize { get => centerSize; set => SetProperty(ref centerSize, value); }
-
-
-
-
+    }
+    public partial class ToolContainerView {
+        public bool DragStatus { get; set; } = true;
     }
     public partial class ToolContainerView : INotifyPropertyChanged {
         public event PropertyChangedEventHandler PropertyChanged;
@@ -398,9 +495,7 @@ namespace SignalStudio.Core {
             }
             return false;
         }
-        protected void RaisePropertyChanged(string propertyName) {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+        protected void RaisePropertyChanged(string propertyName) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
 }

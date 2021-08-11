@@ -1,0 +1,78 @@
+﻿<Window xmlns:Core="clr-namespace:SignalStudio.Core"  x:Class="SignalStudio.Core.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" VisualTextRenderingMode="Aliased" FontFamily="{StaticResource Roboto}"
+        Title="MainView" Height="450" Width="800" x:Name="root">
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="30" />
+    </WindowChrome.WindowChrome>
+    <Window.Resources>
+        <SolidColorBrush x:Key="ControlHover">#FFD9D9D9</SolidColorBrush>
+        <SolidColorBrush x:Key="Background">#FFF2F2F2</SolidColorBrush>
+        <SolidColorBrush x:Key="Border">#FFD9D9D9</SolidColorBrush>
+        
+        <Style x:Key="CaptionButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid x:Name="LayoutRoot" Background="{TemplateBinding Background}" Width="46" Height="30">
+                            <TextBlock x:Name="txt" Text="{TemplateBinding Content}" FontFamily="Segoe MDL2 Assets" FontSize="10" 
+                                   Foreground="{TemplateBinding Foreground}" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   RenderOptions.ClearTypeHint="Auto" TextOptions.TextRenderingMode="Aliased"  TextOptions.TextFormattingMode="Display"/>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="{DynamicResource ControlHover}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static SystemCommands.CloseWindowCommand}" CanExecute="CommandCanExecute" Executed="CommandClose" />
+        <CommandBinding Command="{x:Static SystemCommands.MaximizeWindowCommand}" CanExecute="CommandCanExecute" Executed="CommandMaximize" />
+        <CommandBinding Command="{x:Static SystemCommands.MinimizeWindowCommand}" CanExecute="CommandCanExecute" Executed="CommandMinimize" />
+        <CommandBinding Command="{x:Static SystemCommands.RestoreWindowCommand}" CanExecute="CommandCanExecute" Executed="CommandRestore" />
+    </Window.CommandBindings>
+
+    <Border x:Name="border" BorderBrush="Transparent" BorderThickness="0" Background="{DynamicResource Background}">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height ="Auto"/>
+                <RowDefinition Height ="*"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+                    <TextBlock Text="{Binding Title, ElementName=root}" Margin="4 3 0 0" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" WindowChrome.IsHitTestVisibleInChrome="True">
+                    <Button Content="&#xE949;" Style="{StaticResource CaptionButtonStyle}" Command="{x:Static SystemCommands.MinimizeWindowCommand}"/>
+                    <Button x:Name="RestoreButton" Content="&#xE923;" Visibility="Collapsed" Style="{StaticResource CaptionButtonStyle}" Command="{x:Static SystemCommands.RestoreWindowCommand}"/>
+                    <Button x:Name="MaximizeButton" Content="&#xE739;" Visibility="Visible" Style="{StaticResource CaptionButtonStyle}" Command="{x:Static SystemCommands.MaximizeWindowCommand}" />
+                    <Button Content="&#xE106;" Command="{x:Static SystemCommands.CloseWindowCommand}">
+                        <Button.Style>
+                            <Style TargetType="Button" BasedOn="{StaticResource CaptionButtonStyle}">
+                                <Style.Triggers>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="#FFC42B1C" />
+                                        <Setter Property="Foreground" Value="White" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </StackPanel>
+            </Grid>
+            <Border  Grid.Row="1" BorderBrush="{DynamicResource Border}" BorderThickness="0,1,0,0">
+                <Core:ToolContainerView x:Name="tool" />
+            </Border>
+        </Grid>
+    </Border>
+
+</Window>
