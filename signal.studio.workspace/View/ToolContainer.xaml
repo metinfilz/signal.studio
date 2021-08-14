@@ -3,16 +3,24 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:common="clr-namespace:Signal.Studio.Workspace.Common"
              xmlns:local="clr-namespace:Signal.Studio.Workspace.View"
              mc:Ignorable="d" x:Name="container" DataContext="{Binding ToolStore, ElementName=container}"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.Resources>
+        <common:AndVisibleConverter x:Key="AndVisibleConverter" />
+        <common:OrVisibleConverter x:Key="OrVisibleConverter" />
+
+        
+        
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+
+        
         <Style TargetType="GridSplitter">
             <Setter Property="HorizontalAlignment" Value="Stretch" />
         </Style>
         <ItemsPanelTemplate x:Key="HorizontalItemsPanelTemplate">
-            <StackPanel Orientation="Horizontal" />
+            <StackPanel Orientation="Horizontal" Margin="22,0"/>
         </ItemsPanelTemplate>
         <ItemsPanelTemplate x:Key="Vertical90ItemsPanelTemplate">
             <StackPanel Orientation="Horizontal" >
@@ -50,7 +58,7 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <Border Grid.Row="0" Grid.Column="1">
+        <Border Grid.Row="0" Grid.ColumnSpan="2">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -61,7 +69,7 @@
                 <ItemsControl Grid.Column="2" ItemsSource="{Binding State.TopRightButtons}" ItemsPanel="{StaticResource HorizontalItemsPanelTemplate}"/>
             </Grid>
         </Border>
-        <Border Grid.Row="2" Grid.Column="1">
+        <Border Grid.Row="2" Grid.ColumnSpan="2">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
@@ -94,13 +102,17 @@
                 <ItemsControl Grid.Row="2" ItemsSource="{Binding State.RightBottomButtons}" ItemsPanel="{StaticResource Vertical90ItemsPanelTemplate}"/>
             </Grid>
         </Border>
+        
+        
+        
+        
         <Grid Grid.Row="1" Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="2*"/>
+                <RowDefinition Height="{Binding State.TopSize, Mode=TwoWay, Delay=500}"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="{Binding State.BottomSize, Mode=TwoWay, Delay=500}"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
@@ -109,54 +121,54 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Border Grid.Column="0" Visibility="{Binding State.TopLeftVisible, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <local:ToolPanel/>
+                    <local:ToolPanel Position="TopLeft" x:Name="TopLeftPanel"/>
                 </Border>
-                <GridSplitter Grid.Column="1" Width="6"/>
+                <GridSplitter Grid.Column="1" Width="6" Visibility="{Binding State.TopAndVisible, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                 <Border Grid.Column="2" Visibility="{Binding State.TopRightVisible, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <local:ToolPanel/>
+                    <local:ToolPanel Position="TopRight" x:Name="TopRightPanel"/>
                 </Border>
             </Grid>
-            <GridSplitter Grid.Row="1" Height="6"/>
+            <GridSplitter Grid.Row="1" Height="6" Visibility="{Binding State.TopOrVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
             <Grid Grid.Row="2">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="{Binding State.LeftSize, Mode=TwoWay, Delay=500}"/>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="2*"/>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="{Binding State.RightSize, Mode=TwoWay, Delay=500}"/>
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="{Binding State.LeftTopSize, Mode=TwoWay, Delay=500}" />
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="{Binding State.LeftBottomSize, Mode=TwoWay, Delay=500}" />
                     </Grid.RowDefinitions>
                     <Border Grid.Row="0" Visibility="{Binding State.LeftTopVisible, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <local:ToolPanel/>
+                        <local:ToolPanel Position="LeftTop" x:Name="LeftTopPanel"/>
                     </Border>
-                    <GridSplitter Grid.Row="1" Height="6"/>
+                    <GridSplitter Grid.Row="1" Height="6" Visibility="{Binding State.LeftAndVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
                     <Border Grid.Row="2" Visibility="{Binding State.LeftBottomVisible, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <local:ToolPanel/>
+                        <local:ToolPanel Position="LeftBottom" x:Name="LeftBottomPanel"/>
                     </Border>
                 </Grid>
-                <GridSplitter Grid.Column="1" Width="6"/>
-                <GridSplitter Grid.Column="3" Width="6"/>
+                <GridSplitter Grid.Column="1" Width="6" Visibility="{Binding State.LeftOrVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                <GridSplitter Grid.Column="3" Width="6" Visibility="{Binding State.RightOrVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 <Grid Grid.Column="4">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="{Binding State.RightTopSize, Mode=TwoWay, Delay=500}" />
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="{Binding State.RightBottomSize, Mode=TwoWay, Delay=500}" />
                     </Grid.RowDefinitions>
                     <Border Grid.Row="0" Visibility="{Binding State.RightTopVisible, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <local:ToolPanel/>
+                        <local:ToolPanel Position="RightTop" x:Name="RightTopPanel"/>
                     </Border>
-                    <GridSplitter Grid.Row="1" Height="6"/>
+                    <GridSplitter Grid.Row="1" Height="6" Visibility="{Binding State.RightAndVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
                     <Border Grid.Row="2" Visibility="{Binding State.RightBottomVisible, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
-                        <local:ToolPanel/>
+                        <local:ToolPanel Position="RightBottom" x:Name="RightBottomPanel"/>
                     </Border>
                 </Grid>
             </Grid>
-            <GridSplitter Grid.Row="3" Height="6"/>
+            <GridSplitter Grid.Row="3" Height="6" Visibility="{Binding State.BottomOrVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
             <Grid Grid.Row="4">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
@@ -164,11 +176,11 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
                 <Border Grid.Column="0" Visibility="{Binding State.BottomLeftVisible, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <local:ToolPanel/>
+                    <local:ToolPanel Position="BottomLeft" x:Name="BottomLeftPanel"/>
                 </Border>
-                <GridSplitter Grid.Column="1" Width="6"/>
+                <GridSplitter Grid.Column="1" Width="6" Visibility="{Binding State.BottomAndVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 <Border Grid.Column="2" Visibility="{Binding State.BottomRightVisible, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
-                    <local:ToolPanel/>
+                    <local:ToolPanel Position="BottomRight" x:Name="BottomRightPanel"/>
                 </Border>
             </Grid>
         </Grid>
