@@ -6,6 +6,11 @@ using System.Threading.Tasks;
 
 namespace Signal.Studio.Workspace {
     public class ToolStore {
-        public ToolState ToolState { get; } = new ToolState();
+        public ToolState State { get; } = new ToolState();
+        public ToolAction Action { get; }
+
+        public ToolStore() {
+            Action = new ToolAction(State);
+        }
     }
 }

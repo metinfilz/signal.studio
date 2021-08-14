@@ -49,9 +49,11 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\ToolPosition.cs" />
     <Compile Include="IToolVisibleState.cs" />
     <Compile Include="Service\Resolver.cs" />
     <Compile Include="Service\StoreService.cs" />
+    <Compile Include="Store\ToolAction.cs" />
     <Compile Include="Store\ToolState.cs" />
     <Compile Include="Store\ToolStore.cs" />
     <Compile Include="View\ToolContainer.xaml.cs">
@@ -87,6 +89,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include=".editorconfig" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
