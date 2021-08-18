@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 
-namespace Signal.Studio.Workspace {
-    public interface IToolSizeState {
- 
+namespace Signal.Studio.Workspace.Common {
+    class StoreXmlParser {
+
+
+
     }
 }

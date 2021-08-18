@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace Signal.Studio.Workspace {
     public interface IToolBase {
-        public string ToolPanelHeader { get; }
+        string ToolPanelHeader { get; }
     }
 }

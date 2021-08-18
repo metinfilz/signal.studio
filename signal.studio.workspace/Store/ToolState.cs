@@ -16,7 +16,7 @@ namespace Signal.Studio.Workspace {
         internal Dictionary<Position, ToolPanel> Panels { get; } = new Dictionary<Position, ToolPanel>();
         internal Dictionary<Position, ObservableCollection<ToggleButton>> Buttons { get; } = new Dictionary<Position, ObservableCollection<ToggleButton>>();
         internal Dictionary<Position, VariableReference> Visibilities { get; } = new Dictionary<Position, VariableReference>();
-        internal Dictionary<Position, GridLength> Sizes { get; } = new Dictionary<Position, GridLength>();
+        internal Dictionary<Position, VariableReference> Sizes { get; } = new Dictionary<Position, VariableReference>();
         
         
         internal List<ToolModel> Tools { get; } = new List<ToolModel>();
@@ -39,14 +39,14 @@ namespace Signal.Studio.Workspace {
             Visibilities.Add(Position.BottomLeft, new VariableReference(() => BottomLeftVisible, val => BottomLeftVisible = (bool)val));
             Visibilities.Add(Position.BottomRight, new VariableReference(() => BottomRightVisible, val => BottomRightVisible = (bool)val));
 
-            Sizes.Add(Position.LeftTop, leftTopSizeCache);
-            Sizes.Add(Position.LeftBottom, leftBottomSizeCache);
-            Sizes.Add(Position.RightTop, rightTopSizeCache);
-            Sizes.Add(Position.RightBottom, rightBottomSizeCache);
-            Sizes.Add(Position.TopLeft, topLeftSizeCache);
-            Sizes.Add(Position.TopRight, topRightSizeCache);
-            Sizes.Add(Position.BottomLeft, bottomLeftSizeCache);
-            Sizes.Add(Position.BottomRight, bottomRightSizeCache);
+            Sizes.Add(Position.LeftTop, new VariableReference(() => LeftTopSize, val => LeftTopSize = (GridLength)val));
+            Sizes.Add(Position.LeftBottom, new VariableReference(() => LeftBottomSize, val => LeftBottomSize = (GridLength)val));
+            Sizes.Add(Position.RightTop, new VariableReference(() => RightTopSize, val => RightTopSize = (GridLength)val));
+            Sizes.Add(Position.RightBottom, new VariableReference(() => RightBottomSize, val => RightBottomSize = (GridLength)val));
+            Sizes.Add(Position.TopLeft, new VariableReference(() => TopLeftSize, val => TopLeftSize = (GridLength)val));
+            Sizes.Add(Position.TopRight, new VariableReference(() => TopRightSize, val => TopRightSize = (GridLength)val));
+            Sizes.Add(Position.BottomLeft, new VariableReference(() => BottomLeftSize, val => BottomLeftSize = (GridLength)val));
+            Sizes.Add(Position.BottomRight, new VariableReference(() => BottomRightSize, val => BottomRightSize = (GridLength)val));
         }
     }
 
@@ -61,7 +61,7 @@ namespace Signal.Studio.Workspace {
         public ObservableCollection<ToggleButton> BottomRightButtons { get; } = new ObservableCollection<ToggleButton>();
     }
 
-    public partial class ToolState : IToolsVisibleState {
+    public partial class ToolState {
         public bool LeftTopVisible {
             get => leftTopVisible; set {
                 SetProperty(ref leftTopVisible, value);
@@ -223,7 +223,7 @@ namespace Signal.Studio.Workspace {
         public bool BottomOrVisible { get => bottomOrVisible; set => SetProperty(ref bottomOrVisible, value); }
         public bool BottomAndVisible { get => bottomAndVisible; set => SetProperty(ref bottomAndVisible, value); }
     }
-    public partial class ToolState : IToolSizeState {
+    public partial class ToolState {
         public GridLength TopLeftSize { get => topLeftSize; set => SetProperty(ref topLeftSize, value); }
         public GridLength TopRightSize { get => topRightSize; set => SetProperty(ref topRightSize, value); }
         public GridLength BottomLeftSize { get => bottomLeftSize; set => SetProperty(ref bottomLeftSize, value); }

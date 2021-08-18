@@ -11,8 +11,6 @@ using Position = Signal.Studio.Workspace.Common.ToolPosition;
 namespace Signal.Studio.Workspace.View {
     public partial class ToolContainer : UserControl {
         public IStoreService Store { get; }
-
-
         public ToolStore ToolStore => Store.ToolStore;
         public ToolContainer() {
             Store = Resolver.Resolve<IStoreService>();
@@ -25,41 +23,6 @@ namespace Signal.Studio.Workspace.View {
             ToolStore.State.Panels.Add(Position.LeftBottom, LeftBottomPanel);
             ToolStore.State.Panels.Add(Position.RightTop, RightBottomPanel);
             ToolStore.State.Panels.Add(Position.RightBottom, RightBottomPanel);
-
-
-            //ToolStore.State.OpenRequest += (s, e) => {
-            //    var position = (ToolPosition)e[0];
-            //    var tool = (Type)e[1];
-            //    switch (position) {
-            //        case ToolPosition.LeftTop:
-            //            LeftTopPanel.content.Children.Clear();
-            //            LeftTopPanel.content.Children.Add((UserControl)Activator.CreateInstance(tool));
-            //            break;
-            //        case ToolPosition.LeftBottom:
-            //            LeftBottomPanel.content.Children.Clear();
-            //            LeftBottomPanel.content.Children.Add((UserControl)Activator.CreateInstance(tool));
-            //            break;
-            //        case ToolPosition.RightTop:
-            //            RightTopPanel.content.Children.Clear();
-            //            RightTopPanel.content.Children.Add((UserControl)Activator.CreateInstance(tool));
-            //            break;
-            //        case ToolPosition.RightBottom:
-            //            RightBottomPanel.Content = (UserControl)Activator.CreateInstance(tool);
-            //            break;
-            //        case ToolPosition.TopLeft:
-            //            TopLeftPanel.Content = (UserControl)Activator.CreateInstance(tool);
-            //            break;
-            //        case ToolPosition.TopRight:
-            //            TopRightPanel.Content = (UserControl)Activator.CreateInstance(tool);
-            //            break;
-            //        case ToolPosition.BottomLeft:
-            //            BottomLeftPanel.Content = (UserControl)Activator.CreateInstance(tool);
-            //            break;
-            //        case ToolPosition.BottomRight:
-            //            BottomRightPanel.Content = (UserControl)Activator.CreateInstance(tool);
-            //            break;
-            //    }
-            //};
         }
 
         protected override void OnVisualParentChanged(DependencyObject oldParent) {
