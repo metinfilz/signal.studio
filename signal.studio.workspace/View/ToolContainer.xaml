@@ -294,11 +294,20 @@
                                 <DataTrigger Binding="{Binding State.BottomOrVisible}" Value="True">
                                     <Setter Property="Margin" Value="0,0,0,-3" />
                                 </DataTrigger>
+                                <MultiDataTrigger>
+                                    <MultiDataTrigger.Conditions>
+                                        <Condition Binding="{Binding State.LeftOrVisible}" Value="True" />
+                                        <Condition Binding="{Binding State.RightOrVisible}" Value="True" />
+                                    </MultiDataTrigger.Conditions>
+                                    <MultiDataTrigger.Setters>
+                                        <Setter Property="Margin" Value="-3,0" />
+                                    </MultiDataTrigger.Setters>
+                                </MultiDataTrigger>
 
                             </Style.Triggers>
                         </Style>
                     </Border.Style>
-
+                    <ContentControl Content="{Binding CenterContent, ElementName=container}" />
                 </Border>
                 <GridSplitter Grid.Column="3" Width="6" Visibility="{Binding State.RightOrVisible, Converter={StaticResource BooleanToVisibilityConverter}}" />
                 <Grid Grid.Column="4">

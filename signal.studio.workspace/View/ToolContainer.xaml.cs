@@ -21,7 +21,7 @@ namespace Signal.Studio.Workspace.View {
             ToolStore.State.Panels.Add(Position.BottomRight, BottomRightPanel);
             ToolStore.State.Panels.Add(Position.LeftTop, LeftTopPanel);
             ToolStore.State.Panels.Add(Position.LeftBottom, LeftBottomPanel);
-            ToolStore.State.Panels.Add(Position.RightTop, RightBottomPanel);
+            ToolStore.State.Panels.Add(Position.RightTop, RightTopPanel);
             ToolStore.State.Panels.Add(Position.RightBottom, RightBottomPanel);
         }
 
@@ -30,6 +30,13 @@ namespace Signal.Studio.Workspace.View {
             var view = Application.Current.MainWindow;
             view.Loaded += (s, e) => {
             };
+        }
+    }
+    public partial class ToolContainer {
+        public static DependencyProperty CenterContentProperty = DependencyProperty.Register("CenterContent", typeof(UserControl), typeof(ToolContainer));
+        public UserControl CenterContent {
+            get => (UserControl)GetValue(CenterContentProperty);
+            set => SetValue(CenterContentProperty, value);
         }
     }
 }

@@ -22,6 +22,7 @@ namespace Signal.Studio.Workspace {
             var view = (UserControl)Activator.CreateInstance(type);
             State.Visibilities[position].Set(true);
             var config = (IToolBase)view;
+            State.Panels[position].content.Children.Clear();
             State.Panels[position].content.Children.Add(view);
             State.Panels[position].header.Text = config.ToolPanelHeader;
             State.Buttons[position].ToList().ForEach(i => i.IsChecked = false);

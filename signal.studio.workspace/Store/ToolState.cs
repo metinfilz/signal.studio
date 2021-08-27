@@ -17,8 +17,6 @@ namespace Signal.Studio.Workspace {
         internal Dictionary<Position, ObservableCollection<ToggleButton>> Buttons { get; } = new Dictionary<Position, ObservableCollection<ToggleButton>>();
         internal Dictionary<Position, VariableReference> Visibilities { get; } = new Dictionary<Position, VariableReference>();
         internal Dictionary<Position, VariableReference> Sizes { get; } = new Dictionary<Position, VariableReference>();
-        
-        
         internal List<ToolModel> Tools { get; } = new List<ToolModel>();
         public ToolState() {
             Buttons.Add(Position.LeftTop, LeftTopButtons);

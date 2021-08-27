@@ -39,10 +39,6 @@ namespace Signal.Studio.Workspace.Store {
             var parser = new StateXmlParser();
             parser.LoadFromFile(Tool, path);
 
-
-
-
-
             Tool.State.Tools.ForEach(tool => {
                 var button = new ToggleButton { Content = tool.ButtonHeader, Tag = tool.Type };
                 button.Click += (s, e) => {
