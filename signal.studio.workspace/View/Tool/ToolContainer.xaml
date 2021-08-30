@@ -1,0 +1,393 @@
+﻿<UserControl x:Class="Signal.Studio.Workspace.View.ToolContainer"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:common="clr-namespace:Signal.Studio.Workspace.Common"
+             xmlns:store="clr-namespace:Signal.Studio.Workspace.Context"
+             xmlns:utils="clr-namespace:Signal.Studio.Workspace.Utils"
+             xmlns:view="clr-namespace:Signal.Studio.Workspace.View"
+             mc:Ignorable="d" x:ClassModifier="internal" Background="{StaticResource colors.panel}"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.DataContext>
+        <store:ToolState />
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <utils:MultiOrBooleanToVisibilityConverter x:Key="MultiOrBooleanToVisibilityConverter"/>
+        <utils:MultiAndBooleanToVisibilityConverter x:Key="MultiAndBooleanToVisibilityConverter" />
+        <utils:StarLengthConverter x:Key="StarLengthConverter" />
+        <utils:PixelLengthConverter x:Key="PixelLengthConverter" />
+        <utils:HorizontalMarginConverter x:Key="HorizontalMarginConverter" />
+        <utils:VerticalMarginConverter x:Key="VerticalMarginConverter" />
+        <ItemsPanelTemplate x:Key="HorizontalPanel">
+            <StackPanel Orientation="Horizontal"/>
+        </ItemsPanelTemplate>
+        <ItemsPanelTemplate x:Key="Vertical90Panel">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel.LayoutTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="90"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </StackPanel.LayoutTransform>
+            </StackPanel>
+        </ItemsPanelTemplate>
+        <ItemsPanelTemplate x:Key="Vertical270Panel">
+            <StackPanel Orientation="Horizontal">
+                <StackPanel.LayoutTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="270"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </StackPanel.LayoutTransform>
+            </StackPanel>
+        </ItemsPanelTemplate>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <Style TargetType="GridSplitter" x:Key="GridSplitterBase">
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="Panel.ZIndex" Value="100" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="IsTabStop" Value="False" />
+            <Setter Property="Focusable" Value="False" />
+        </Style>
+        <Style TargetType="Border">
+            <Setter Property="BorderBrush" Value="{StaticResource colors.border}" />
+        </Style>
+    </UserControl.Resources>
+    <Border BorderThickness="0,0,1,1">
+        <Grid UseLayoutRounding="True">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="1,1,0,0" BorderBrush="{StaticResource colors.border}">
+                <Border.Visibility>
+                    <MultiBinding Converter="{StaticResource MultiAndBooleanToVisibilityConverter}">
+                        <Binding Path="ButtonsTopLeft.Count" />
+                        <Binding Path="ButtonsTopRight.Count" />
+                    </MultiBinding>
+                </Border.Visibility>
+                <Grid Margin="22,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ItemsControl Grid.Column="0" IsTabStop="False" ItemsSource="{Binding ButtonsTopLeft, Mode=OneWay}" ItemsPanel="{StaticResource HorizontalPanel}" />
+                    <ItemsControl Grid.Column="2" IsTabStop="False" ItemsSource="{Binding ButtonsTopRight, Mode=OneWay}" ItemsPanel="{StaticResource HorizontalPanel}" />
+                </Grid>
+            </Border>
+            <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="1,1,0,0" BorderBrush="{StaticResource colors.border}">
+                <Border.Visibility>
+                    <MultiBinding Converter="{StaticResource MultiAndBooleanToVisibilityConverter}">
+                        <Binding Path="ButtonsBottomLeft.Count" />
+                        <Binding Path="ButtonsBottomRight.Count" />
+                    </MultiBinding>
+                </Border.Visibility>
+                <Grid Margin="22,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ItemsControl Grid.Column="0" IsTabStop="False" ItemsSource="{Binding ButtonsBottomLeft, Mode=OneWay}" ItemsPanel="{StaticResource HorizontalPanel}" />
+                    <ItemsControl Grid.Column="2" IsTabStop="False" ItemsSource="{Binding ButtonsBottomRight, Mode=OneWay}" ItemsPanel="{StaticResource HorizontalPanel}" />
+                </Grid>
+            </Border>
+            <Border Grid.Row="1" Grid.Column="0" BorderThickness="1,1,0,0" BorderBrush="{StaticResource colors.border}">
+                <Border.Visibility>
+                    <MultiBinding Converter="{StaticResource MultiAndBooleanToVisibilityConverter}">
+                        <Binding Path="ButtonsLeftTop.Count" />
+                        <Binding Path="ButtonsLeftBottom.Count" />
+                    </MultiBinding>
+                </Border.Visibility>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <ItemsControl Grid.Row="0" IsTabStop="False" ItemsSource="{Binding ButtonsLeftTop, Mode=OneWay}" ItemsPanel="{StaticResource Vertical270Panel}" />
+                    <ItemsControl Grid.Row="2" IsTabStop="False" ItemsSource="{Binding ButtonsLeftBottom, Mode=OneWay}" ItemsPanel="{StaticResource Vertical270Panel}" />
+                </Grid>
+            </Border>
+            <Border Grid.Row="1" Grid.Column="2" BorderThickness="1,1,0,0" BorderBrush="{StaticResource colors.border}">
+                <Border.Visibility>
+                    <MultiBinding Converter="{StaticResource MultiAndBooleanToVisibilityConverter}">
+                        <Binding Path="ButtonsRightTop.Count" />
+                        <Binding Path="ButtonsRightBottom.Count" />
+                    </MultiBinding>
+                </Border.Visibility>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <ItemsControl Grid.Row="0" IsTabStop="False" ItemsSource="{Binding ButtonsRightTop, Mode=OneWay}" ItemsPanel="{StaticResource Vertical90Panel}" />
+                    <ItemsControl Grid.Row="2" IsTabStop="False" ItemsSource="{Binding ButtonsRightBottom, Mode=OneWay}" ItemsPanel="{StaticResource Vertical90Panel}" />
+                </Grid>
+            </Border>
+            <Grid x:Name="middlle" Grid.Row="1" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition x:Name="top" Height="{Binding SizeTop, Mode=TwoWay, Delay=50, Converter={StaticResource PixelLengthConverter}}"/>
+                    <RowDefinition Height="Auto" MaxHeight="6"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto" MaxHeight="6"/>
+                    <RowDefinition x:Name="bottom" Height="{Binding SizeBottom, Mode=TwoWay, Delay=50, Converter={StaticResource PixelLengthConverter}}"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="{Binding SizeTopLeft, Mode=TwoWay, Delay=50, Converter={StaticResource StarLengthConverter}}"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="{Binding SizeTopRight, Mode=TwoWay, Delay=50, Converter={StaticResource StarLengthConverter}}"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" BorderThickness="1,1,0,0" Visibility="{Binding VisibilityTopLeft, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="BorderBrush" Value="{StaticResource colors.border}" />
+                                <Setter Property="BorderThickness" Value="1,1,0,0" />
+                                <Setter Property="Margin" Value="0,0,-3,-3"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding VisibilityTopRight}" Value="False">
+                                        <Setter Property="Margin" Value="0,0,0,-3"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <view:ToolDock ToolContent="{Binding PanelTopLeft, Mode=OneWay}" Position="TopLeft"/>
+                    </Border>
+                    <GridSplitter Grid.Column="1"  Width="6" Style="{StaticResource GridSplitterBase}">
+                        <GridSplitter.Visibility>
+                            <MultiBinding Converter="{StaticResource MultiAndBooleanToVisibilityConverter}">
+                                <Binding Path="VisibilityTopLeft" />
+                                <Binding Path="VisibilityTopRight" />
+                            </MultiBinding>
+                        </GridSplitter.Visibility>
+                    </GridSplitter>
+                    <Border Grid.Column="2" BorderThickness="1,1,0,0" Visibility="{Binding VisibilityTopRight, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="BorderBrush" Value="{StaticResource colors.border}" />
+                                <Setter Property="BorderThickness" Value="1,1,0,0" />
+                                <Setter Property="Margin" Value="-3,0,0,-3"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding VisibilityTopLeft}" Value="False">
+                                        <Setter Property="Margin" Value="0,0,0,-3"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <view:ToolDock ToolContent="{Binding PanelTopRight, Mode=OneWay}" Position="TopRight"/>
+                    </Border>
+                </Grid>
+                <GridSplitter x:Name="topSplitter" Height="6" Grid.Row="1" Style="{StaticResource GridSplitterBase}">
+                    <GridSplitter.Visibility>
+                        <MultiBinding Converter="{StaticResource MultiOrBooleanToVisibilityConverter}">
+                            <Binding Path="VisibilityTopLeft" />
+                            <Binding Path="VisibilityTopRight" />
+                        </MultiBinding>
+                    </GridSplitter.Visibility>
+                </GridSplitter>
+                <Grid Grid.Row="2" x:Name="center">
+                    <Grid.Margin>
+                        <MultiBinding Converter="{StaticResource VerticalMarginConverter}">
+                            <Binding Path="VisibilityTopLeft" />
+                            <Binding Path="VisibilityTopRight" />
+                            <Binding Path="VisibilityBottomLeft" />
+                            <Binding Path="VisibilityBottomRight" />
+                        </MultiBinding>
+                    </Grid.Margin>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition x:Name="left" Width="{Binding SizeLeft, Mode=TwoWay, Delay=50, Converter={StaticResource PixelLengthConverter}}"/>
+                        <ColumnDefinition Width="Auto" MaxWidth="6"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto" MaxWidth="6" />
+                        <ColumnDefinition x:Name="right" Width="{Binding SizeRight, Mode=TwoWay, Delay=50, Converter={StaticResource PixelLengthConverter}}"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="{Binding SizeLeftTop, Mode=TwoWay, Delay=50, Converter={StaticResource StarLengthConverter}}"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="{Binding SizeLeftBottom, Mode=TwoWay, Delay=50, Converter={StaticResource StarLengthConverter}}"/>
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="0" Visibility="{Binding VisibilityLeftTop, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="BorderBrush" Value="{StaticResource colors.border}" />
+                                    <Setter Property="BorderThickness" Value="1,1,0,0" />
+                                    <Setter Property="Margin" Value="0,0,-3,-3"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding VisibilityLeftBottom}" Value="False">
+                                            <Setter Property="Margin" Value="0,0,-3,0"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <view:ToolDock ToolContent="{Binding PanelLeftTop, Mode=OneWay}" Position="LeftTop"/>
+                        </Border>
+                        <GridSplitter Height="6" Grid.Row="1" Style="{StaticResource GridSplitterBase}">
+                            <GridSplitter.Visibility>
+                                <MultiBinding Converter="{StaticResource MultiAndBooleanToVisibilityConverter}">
+                                    <Binding Path="VisibilityLeftTop" />
+                                    <Binding Path="VisibilityLeftBottom" />
+                                </MultiBinding>
+                            </GridSplitter.Visibility>
+                        </GridSplitter>
+                        <Border Grid.Row="2" Visibility="{Binding VisibilityLeftBottom, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="BorderBrush" Value="{StaticResource colors.border}" />
+                                    <Setter Property="BorderThickness" Value="1,1,0,0" />
+                                    <Setter Property="Margin" Value="0,-3,-3,0"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding VisibilityLeftTop}" Value="False">
+                                            <Setter Property="Margin" Value="0,0,-3,0"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <view:ToolDock ToolContent="{Binding PanelLeftBottom, Mode=OneWay}" Position="LeftBottom"/>
+                        </Border>
+                    </Grid>
+                    <GridSplitter x:Name="leftGrid" Grid.Column="1" Width="6" Style="{StaticResource GridSplitterBase}">
+                        <GridSplitter.Visibility>
+                            <MultiBinding Converter="{StaticResource MultiOrBooleanToVisibilityConverter}">
+                                <Binding Path="VisibilityLeftTop" />
+                                <Binding Path="VisibilityLeftBottom" />
+                            </MultiBinding>
+                        </GridSplitter.Visibility>
+                    </GridSplitter>
+                    <Border Grid.Column="2" BorderThickness="1,1,0,0">
+                        <Border.Margin>
+                            <MultiBinding Converter="{StaticResource HorizontalMarginConverter}">
+                                <Binding Path="VisibilityLeftTop"/>
+                                <Binding Path="VisibilityLeftBottom"/>
+                                <Binding Path="VisibilityRightTop" />
+                                <Binding Path="VisibilityRightBottom" />
+                            </MultiBinding>
+                        </Border.Margin>
+                        <view:EditorContainer />
+                    </Border>
+                    <GridSplitter x:Name="rightGrid" Grid.Column="3" Width="6" Style="{StaticResource GridSplitterBase}">
+                        <GridSplitter.Visibility>
+                            <MultiBinding Converter="{StaticResource MultiOrBooleanToVisibilityConverter}">
+                                <Binding Path="VisibilityRightTop" />
+                                <Binding Path="VisibilityRightBottom" />
+                            </MultiBinding>
+                        </GridSplitter.Visibility>
+                    </GridSplitter>
+                    <Grid x:Name="test3" Grid.Column="4">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="{Binding SizeRightTop, Mode=TwoWay, Delay=50, Converter={StaticResource StarLengthConverter}}"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="{Binding SizeRightBottom, Mode=TwoWay, Delay=50, Converter={StaticResource StarLengthConverter}}"/>
+                        </Grid.RowDefinitions>
+                        <Border Grid.Row="0" BorderThickness="1,1,0,0" Visibility="{Binding VisibilityRightTop, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="BorderBrush" Value="{StaticResource colors.border}" />
+                                    <Setter Property="BorderThickness" Value="1,1,0,0" />
+                                    <Setter Property="Margin" Value="-3,0,0,-3"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding VisibilityRightBottom}" Value="False">
+                                            <Setter Property="Margin" Value="-3,0,0,0"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <view:ToolDock ToolContent="{Binding PanelRightTop, Mode=OneWay}" Position="RightTop"/>
+                        </Border>
+                        <GridSplitter Height="6" Grid.Row="1" Style="{StaticResource GridSplitterBase}">
+                            <GridSplitter.Visibility>
+                                <MultiBinding Converter="{StaticResource MultiAndBooleanToVisibilityConverter}">
+                                    <Binding Path="VisibilityRightTop" />
+                                    <Binding Path="VisibilityRightBottom" />
+                                </MultiBinding>
+                            </GridSplitter.Visibility>
+                        </GridSplitter>
+                        <Border Grid.Row="2" BorderThickness="1,1,0,0"  Visibility="{Binding VisibilityRightBottom, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+                            <Border.Style>
+                                <Style TargetType="Border">
+                                    <Setter Property="BorderBrush" Value="{StaticResource colors.border}" />
+                                    <Setter Property="BorderThickness" Value="1,1,0,0" />
+                                    <Setter Property="Margin" Value="-3,-3,0,0"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding VisibilityRightTop}" Value="False">
+                                            <Setter Property="Margin" Value="-3,0,0,0"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Border.Style>
+                            <view:ToolDock ToolContent="{Binding PanelRightBottom, Mode=OneWay}" Position="RightBottom"/>
+                        </Border>
+                    </Grid>
+                </Grid>
+                <GridSplitter x:Name="bottomSplitter" Height="6" Grid.Row="3" Style="{StaticResource GridSplitterBase}" >
+                    <GridSplitter.Visibility>
+                        <MultiBinding Converter="{StaticResource MultiOrBooleanToVisibilityConverter}">
+                            <Binding Path="VisibilityBottomLeft" />
+                            <Binding Path="VisibilityBottomRight" />
+                        </MultiBinding>
+                    </GridSplitter.Visibility>
+                </GridSplitter>
+                <Grid Grid.Row="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="{Binding SizeBottomLeft, Mode=TwoWay, Delay=50, Converter={StaticResource StarLengthConverter}}"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="{Binding SizeBottomRight, Mode=TwoWay, Delay=50, Converter={StaticResource StarLengthConverter}}"/>
+                    </Grid.ColumnDefinitions>
+                    <Border Grid.Column="0" BorderThickness="1,1,0,0" Visibility="{Binding VisibilityBottomLeft, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="BorderBrush" Value="{StaticResource colors.border}" />
+                                <Setter Property="BorderThickness" Value="1,1,0,0" />
+                                <Setter Property="Margin" Value="0,-3,-3,0"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding VisibilityBottomRight}" Value="False">
+                                        <Setter Property="Margin" Value="0,-3,0,0"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <view:ToolDock ToolContent="{Binding PanelBottomLeft, Mode=OneWay}" Position="BottomLeft"/>
+                    </Border>
+                    <GridSplitter Grid.Column="1" Width="6" Style="{StaticResource GridSplitterBase}">
+                        <GridSplitter.Visibility>
+                            <MultiBinding Converter="{StaticResource MultiAndBooleanToVisibilityConverter}">
+                                <Binding Path="VisibilityBottomLeft" />
+                                <Binding Path="VisibilityBottomRight" />
+                            </MultiBinding>
+                        </GridSplitter.Visibility>
+                    </GridSplitter>
+                    <Border Grid.Column="2" BorderThickness="1,1,0,0" Visibility="{Binding VisibilityBottomRight, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}">
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="BorderBrush" Value="{StaticResource colors.border}" />
+                                <Setter Property="BorderThickness" Value="1,1,0,0" />
+                                <Setter Property="Margin" Value="-3,-3,0,0"/>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding VisibilityBottomLeft}" Value="False">
+                                        <Setter Property="Margin" Value="0,-3,0,0"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <view:ToolDock ToolContent="{Binding PanelBottomRight, Mode=OneWay}" Position="BottomRight"/>
+                    </Border>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Border>
+</UserControl>

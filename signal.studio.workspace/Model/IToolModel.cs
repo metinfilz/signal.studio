@@ -1,11 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel;
+using Signal.Studio.Workspace.Utils;
 
 namespace Signal.Studio.Workspace.Model {
     public interface IToolModel {
-        string ButtonHeader { get; set; }
+        event PropertyChangedEventHandler PropertyChanged;
+
+        Type Type { get; }
+        ToolPosition Position { get; }
+        string Header { get; set; }
+        ToolViewMode ViewMode { get; }
+
+        void Build();
     }
 }

@@ -4,18 +4,20 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{74D9A470-9CAF-47C0-B858-E691DD7A38EF}</ProjectGuid>
-    <OutputType>library</OutputType>
+    <ProjectGuid>{51905C3E-A6CB-4F3E-B7AA-201834101AA1}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
     <RootNamespace>Signal.Studio.Workspace</RootNamespace>
     <AssemblyName>Signal.Studio.Workspace</AssemblyName>
-    <LangVersion>8.0</LangVersion>
+    <LangVersion>9.0</LangVersion>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -25,12 +27,16 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -39,6 +45,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
@@ -48,35 +55,106 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\Converters.cs" />
-    <Compile Include="Common\StateXmlParser.cs" />
-    <Compile Include="Common\StoreXmlParser.cs" />
-    <Compile Include="Common\ToolPosition.cs" />
-    <Compile Include="Common\VariableReference.cs" />
-    <Compile Include="IToolBase.cs" />
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Common\ITool.cs" />
+    <Compile Include="Common\IToolState.cs" />
+    <Compile Include="Context\ThemeState.cs" />
+    <Compile Include="View\Editor\EditorDock.xaml.cs">
+      <DependentUpon>EditorDock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Editor\EditorContainer.xaml.cs">
+      <DependentUpon>EditorContainer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Tool\ToolToggleButton.cs" />
+    <Compile Include="Context\VariableReference.cs" />
     <Compile Include="Model\IToolModel.cs" />
     <Compile Include="Model\ToolModel.cs" />
-    <Compile Include="Service\Resolver.cs" />
-    <Compile Include="Service\StoreService.cs" />
-    <Compile Include="Store\ToolAction.cs" />
-    <Compile Include="Store\ToolBuilder.cs" />
-    <Compile Include="Store\ToolState.cs" />
-    <Compile Include="Store\ToolStore.cs" />
-    <Compile Include="View\ToolContainer.xaml.cs">
+    <Compile Include="NiceSquare.xaml.cs">
+      <DependentUpon>NiceSquare.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Context\Store.cs" />
+    <Compile Include="Context\ToolAction.cs" />
+    <Compile Include="Context\ToolState.cs" />
+    <Compile Include="ThemeResource.cs" />
+    <Compile Include="View\Tool\ToolFloat.xaml.cs">
+      <DependentUpon>ToolFloat.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Tool\ToolWindow.xaml.cs">
+      <DependentUpon>ToolWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Common\ToolBuilder.cs" />
+    <Compile Include="Utils\ToolPosition.cs" />
+    <Compile Include="Utils\ToolViewMode.cs" />
+    <Compile Include="Utils\Utils.cs" />
+    <Compile Include="View\Tool\ToolDock.xaml.cs">
+      <DependentUpon>ToolDock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="View\Tool\ToolContainer.xaml.cs">
       <DependentUpon>ToolContainer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="View\ToolPanel.xaml.cs">
-      <DependentUpon>ToolPanel.xaml</DependentUpon>
+    <Compile Include="View\WorkspaceView.xaml.cs">
+      <DependentUpon>WorkspaceView.xaml</DependentUpon>
     </Compile>
-    <Page Include="Resource\Resource.xaml">
+    <Page Include="BlueColors.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ToolContainer.xaml">
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="MyBorderStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="View\ToolPanel.xaml">
+    <Page Include="NiceSquare.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="RedColors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resource\Theme\IntellijLightResource.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Editor\EditorDock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Editor\EditorContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Tool\ToolFloat.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Tool\ToolWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Tool\ToolDock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\Tool\ToolContainer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="View\WorkspaceView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -85,30 +163,11 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Settings.settings</DependentUpon>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-    </Compile>
-    <EmbeddedResource Include="Properties\Resources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <None Include=".editorconfig" />
-    <None Include="Properties\Settings.settings">
-      <Generator>SettingsSingleFileGenerator</Generator>
-      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
-    </None>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Autofac">
-      <Version>6.2.0</Version>
-    </PackageReference>
+    <None Include=".editorconfig" />
+    <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

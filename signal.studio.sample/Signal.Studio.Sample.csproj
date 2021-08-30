@@ -55,25 +55,61 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Tool\BlankTool.xaml.cs">
-      <DependentUpon>BlankTool.xaml</DependentUpon>
-    </Compile>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
-    <Page Include="Tool\BlankTool.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Compile Include="Tool\Blank10Tool.xaml.cs">
+      <DependentUpon>Blank10Tool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\Blank11Tool.xaml.cs">
+      <DependentUpon>Blank11Tool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\Blank12Tool.xaml.cs">
+      <DependentUpon>Blank12Tool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\Blank13Tool.xaml.cs">
+      <DependentUpon>Blank13Tool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\Blank14Tool.xaml.cs">
+      <DependentUpon>Blank14Tool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\Blank15Tool.xaml.cs">
+      <DependentUpon>Blank15Tool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\Blank16Tool.xaml.cs">
+      <DependentUpon>Blank16Tool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\Blank1Tool.xaml.cs">
+      <DependentUpon>Blank1Tool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\Blank2Tool.xaml.cs">
+      <DependentUpon>Blank2Tool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\Blank3Tool.xaml.cs">
+      <DependentUpon>Blank3Tool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\Blank4Tool.xaml.cs">
+      <DependentUpon>Blank4Tool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\Blank5Tool.xaml.cs">
+      <DependentUpon>Blank5Tool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\Blank6Tool.xaml.cs">
+      <DependentUpon>Blank6Tool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\Blank7Tool.xaml.cs">
+      <DependentUpon>Blank7Tool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\Blank8Tool.xaml.cs">
+      <DependentUpon>Blank8Tool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\Blank9Tool.xaml.cs">
+      <DependentUpon>Blank9Tool.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -93,6 +129,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include=".editorconfig" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -103,9 +140,79 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Signal.Studio.Workspace\Signal.Studio.Workspace.csproj">
-      <Project>{74d9a470-9caf-47c0-b858-e691dd7a38ef}</Project>
+      <Project>{51905c3e-a6cb-4f3e-b7aa-201834101aa1}</Project>
       <Name>Signal.Studio.Workspace</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tool\Blank10Tool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tool\Blank11Tool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tool\Blank12Tool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tool\Blank13Tool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tool\Blank14Tool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tool\Blank15Tool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tool\Blank16Tool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tool\Blank1Tool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tool\Blank2Tool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tool\Blank3Tool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tool\Blank4Tool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tool\Blank5Tool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tool\Blank6Tool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tool\Blank7Tool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tool\Blank8Tool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tool\Blank9Tool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -13,12 +13,12 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Signal.Studio.Sample.Tool {
+namespace Signal.Studio.Workspace.View {
     /// <summary>
-    /// Interaction logic for BlankTool.xaml
+    /// Interaction logic for EditorDock.xaml
     /// </summary>
-    public partial class BlankTool : UserControl {
-        public BlankTool() {
+    public partial class EditorDock : UserControl {
+        public EditorDock() {
             InitializeComponent();
         }
     }
