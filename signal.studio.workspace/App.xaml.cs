@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using Signal.Studio.Workspace.Resource;
 
 namespace Signal.Studio.Workspace {
     public partial class App : Application {
@@ -29,37 +28,6 @@ namespace Signal.Studio.Workspace {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        public static Skin Skin { get; set; } = Skin.Red;
-
-        public void ChangeSkin(Skin newSkin) {
-            Skin = newSkin;
-
-            foreach (ResourceDictionary dict in Resources.MergedDictionaries) {
-
-                if (dict is ThemeResource skinDict)
-                    skinDict.UpdateSource();
-                else
-                    dict.Source = dict.Source;
-            }
-        }
-    }
-
-    public enum Skin {
-        Red, Blue
     }
 
 }

@@ -75,6 +75,7 @@
                     <MultiBinding Converter="{StaticResource MultiAndBooleanToVisibilityConverter}">
                         <Binding Path="ButtonsTopLeft.Count" />
                         <Binding Path="ButtonsTopRight.Count" />
+                        <Binding Path="VisibilityToolButtons" />
                     </MultiBinding>
                 </Border.Visibility>
                 <Grid Margin="22,0">
@@ -92,6 +93,7 @@
                     <MultiBinding Converter="{StaticResource MultiAndBooleanToVisibilityConverter}">
                         <Binding Path="ButtonsBottomLeft.Count" />
                         <Binding Path="ButtonsBottomRight.Count" />
+                        <Binding Path="VisibilityToolButtons" />
                     </MultiBinding>
                 </Border.Visibility>
                 <Grid Margin="22,0">
@@ -109,6 +111,7 @@
                     <MultiBinding Converter="{StaticResource MultiAndBooleanToVisibilityConverter}">
                         <Binding Path="ButtonsLeftTop.Count" />
                         <Binding Path="ButtonsLeftBottom.Count" />
+                        <Binding Path="VisibilityToolButtons" />
                     </MultiBinding>
                 </Border.Visibility>
 
@@ -127,6 +130,7 @@
                     <MultiBinding Converter="{StaticResource MultiAndBooleanToVisibilityConverter}">
                         <Binding Path="ButtonsRightTop.Count" />
                         <Binding Path="ButtonsRightBottom.Count" />
+                        <Binding Path="VisibilityToolButtons" />
                     </MultiBinding>
                 </Border.Visibility>
                 <Grid>

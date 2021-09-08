@@ -85,16 +85,11 @@ namespace Signal.Studio.Workspace.Utils {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture) {
             var status = true;
             values.ToList().ForEach(i => {
-                if (i is bool) status &= (bool)i;
-                else if (i is int) {
-                    if ((int)i == 0) status &= false;
-                    else status &= true;
-                }
-
+                if (i is bool boolean) status &= boolean;
+                else if (i is int integer) status &= integer != 0;
             });
             return status ? Visibility.Visible : Visibility.Collapsed;
         }
-
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture) {
             throw new NotImplementedException();
         }

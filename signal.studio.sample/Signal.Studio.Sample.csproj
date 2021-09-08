@@ -59,9 +59,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Tool\Blank10Tool.xaml.cs">
       <DependentUpon>Blank10Tool.xaml</DependentUpon>
     </Compile>
@@ -139,16 +136,16 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Signal.Studio.Core\Signal.Studio.Core.csproj">
+      <Project>{5171c9cd-3089-4a6d-8ebd-0980cc3510a0}</Project>
+      <Name>Signal.Studio.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Signal.Studio.Workspace\Signal.Studio.Workspace.csproj">
       <Project>{51905c3e-a6cb-4f3e-b7aa-201834101aa1}</Project>
       <Name>Signal.Studio.Workspace</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="MainWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Tool\Blank10Tool.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

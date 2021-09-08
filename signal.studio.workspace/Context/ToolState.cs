@@ -366,12 +366,15 @@ namespace Signal.Studio.Workspace.Context {
         private bool visibilityRightTop = false;
         private bool visibilityRightBottom = false;
 
+
+
         private double sizeMiddle = 2;
         private double sizeCenter = 2;
 
     }
     public partial class ToolState : IToolState {
-    
+        private bool visibilityToolButtons = true;
+        public bool VisibilityToolButtons { get => visibilityToolButtons; set => SetProperty(ref visibilityToolButtons, value); }
     }
 
     public partial class ToolState : INotifyPropertyChanged {

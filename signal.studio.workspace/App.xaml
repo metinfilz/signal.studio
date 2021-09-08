@@ -1,13 +1,10 @@
 ﻿<Application x:Class="Signal.Studio.Workspace.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:Signal.Studio.Workspace.Resource"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <local:ThemeResource RedSource="/RedColors.xaml" BlueSource="/BlueColors.xaml" />
-                <ResourceDictionary Source="/MyBorderStyle.xaml"/>
                 <ResourceDictionary Source="pack://application:,,,/Signal.Studio.Workspace;component/Resource/Theme/IntellijLightResource.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>

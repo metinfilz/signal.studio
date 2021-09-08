@@ -60,6 +60,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Common\ITool.cs" />
+    <Compile Include="Common\IToolAction.cs" />
     <Compile Include="Common\IToolState.cs" />
     <Compile Include="Context\ThemeState.cs" />
     <Compile Include="View\Editor\EditorDock.xaml.cs">
@@ -72,13 +73,9 @@
     <Compile Include="Context\VariableReference.cs" />
     <Compile Include="Model\IToolModel.cs" />
     <Compile Include="Model\ToolModel.cs" />
-    <Compile Include="NiceSquare.xaml.cs">
-      <DependentUpon>NiceSquare.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Context\Store.cs" />
     <Compile Include="Context\ToolAction.cs" />
     <Compile Include="Context\ToolState.cs" />
-    <Compile Include="ThemeResource.cs" />
     <Compile Include="View\Tool\ToolFloat.xaml.cs">
       <DependentUpon>ToolFloat.xaml</DependentUpon>
     </Compile>
@@ -98,34 +95,10 @@
     <Compile Include="View\WorkspaceView.xaml.cs">
       <DependentUpon>WorkspaceView.xaml</DependentUpon>
     </Compile>
-    <Page Include="BlueColors.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="MyBorderStyle.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="NiceSquare.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="RedColors.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Resource\Theme\IntellijLightResource.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -168,6 +141,11 @@
     <None Include=".editorconfig" />
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Signal.Studio.Core\Signal.Studio.Core.csproj">
+      <Project>{5171C9CD-3089-4A6D-8EBD-0980CC3510A0}</Project>
+      <Name>Signal.Studio.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
