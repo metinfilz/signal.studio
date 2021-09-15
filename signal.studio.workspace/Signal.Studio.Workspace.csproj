@@ -62,7 +62,7 @@
     <Compile Include="Common\ITool.cs" />
     <Compile Include="Common\IToolAction.cs" />
     <Compile Include="Common\IToolState.cs" />
-    <Compile Include="Context\ThemeState.cs" />
+    <Compile Include="Common\RelayCommand.cs" />
     <Compile Include="View\Editor\EditorDock.xaml.cs">
       <DependentUpon>EditorDock.xaml</DependentUpon>
     </Compile>
@@ -74,8 +74,8 @@
     <Compile Include="Model\IToolModel.cs" />
     <Compile Include="Model\ToolModel.cs" />
     <Compile Include="Context\Store.cs" />
-    <Compile Include="Context\ToolAction.cs" />
-    <Compile Include="Context\ToolState.cs" />
+    <Compile Include="Repository\Tool\ToolAction.cs" />
+    <Compile Include="Repository\Tool\ToolState.cs" />
     <Compile Include="View\Tool\ToolFloat.xaml.cs">
       <DependentUpon>ToolFloat.xaml</DependentUpon>
     </Compile>
@@ -147,5 +147,6 @@
       <Name>Signal.Studio.Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

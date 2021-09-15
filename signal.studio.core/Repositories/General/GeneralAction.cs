@@ -9,6 +9,9 @@ namespace Signal.Studio.Core.Repositories {
             this.State = generalState;
         }
 
+        public void SetIcon(Uri uri) {
+        }
+
         public void SetPath(string path) {
             this.State.GeneralPath = path;
         }
@@ -29,6 +32,7 @@ namespace Signal.Studio.Core.Repositories {
         }
     }
     public interface IGeneralAction {
+        void SetIcon(Uri uri);
         void SetPath(string path);
         void SetTheme(string theme);
     }

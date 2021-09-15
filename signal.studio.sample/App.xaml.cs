@@ -12,24 +12,14 @@ namespace Signal.Studio.Sample {
         public App() {
             var repository = Repository.Instance;
             repository.General.Action.SetPath(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".signalstudio"));
-            repository.General.Action.SetTheme("ligth");
-
-
-
-
-
-
-
-
-
-
+            repository.General.Action.SetTheme("light");
 
 
 
 
             var toolBuilder = new ToolBuilder();
 
-            toolBuilder.Construct<Blank5Tool>(position: ToolPosition.TopLeft, header: "Blank5").Build();
+            toolBuilder.Construct<Blank5Tool>(position: ToolPosition.TopLeft, header: "Blank5", viewMode: ToolViewMode.Window).Build();
             toolBuilder.Construct<Blank6Tool>(position: ToolPosition.TopRight, header: "Blank6").Build();
             toolBuilder.Construct<Blank13Tool>(position: ToolPosition.TopLeft, header: "Blank13").Build();
             toolBuilder.Construct<Blank14Tool>(position: ToolPosition.TopRight, header: "Blank14").Build();
@@ -49,15 +39,12 @@ namespace Signal.Studio.Sample {
             toolBuilder.Construct<Blank15Tool>(position: ToolPosition.BottomLeft, header: "Blank15").Build();
             toolBuilder.Construct<Blank16Tool>(position: ToolPosition.BottomRight, header: "Blank16").Build();
             toolBuilder.AddDefaultTools();
-
         }
         protected override void OnStartup(StartupEventArgs e) {
             base.OnStartup(e);
             var view = new WindowBase();
             view.Content = new WorkspaceView();
             view.Show();
-
-
         }
     }
 }

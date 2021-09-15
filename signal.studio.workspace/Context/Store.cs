@@ -1,4 +1,5 @@
 ﻿using Signal.Studio.Workspace.Common;
+using Signal.Studio.Workspace.Repositories;
 
 namespace Signal.Studio.Workspace.Context {
     public sealed class Store {

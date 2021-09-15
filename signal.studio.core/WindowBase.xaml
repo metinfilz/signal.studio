@@ -93,7 +93,6 @@
                                     <StackPanel Grid.Column="0" Orientation="Horizontal" WindowChrome.IsHitTestVisibleInChrome="True" VerticalAlignment="Stretch">
                                         <Image Source="Resource/icon.png" Width="16" Height="16" Margin="8,3" />
                                         <Menu Background="Transparent">
-                                            <MenuItem Header="File"  Height="30"/>
                                         </Menu>
                                     </StackPanel>
                                     <StackPanel Grid.Column="2" Orientation="Horizontal" WindowChrome.IsHitTestVisibleInChrome="True">

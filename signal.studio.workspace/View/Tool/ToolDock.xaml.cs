@@ -1,8 +1,6 @@
 ﻿using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Shapes;
 using Signal.Studio.Workspace.Context;
 using Signal.Studio.Workspace.Utils;
 
@@ -37,7 +35,6 @@ namespace Signal.Studio.Workspace.View {
             _ = context.Items.Add(move);
             button.ContextMenu = context;
             button.ContextMenu.IsOpen = true;
-            Debug.WriteLine(Position);
         }
     }
     internal partial class ToolDock {

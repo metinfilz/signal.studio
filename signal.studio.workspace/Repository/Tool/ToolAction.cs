@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
+﻿using System.Collections.Generic;
 using System.Linq;
-using Signal.Studio.Core;
 using Signal.Studio.Workspace.Common;
 using Signal.Studio.Workspace.Model;
 using Signal.Studio.Workspace.Utils;
 using Signal.Studio.Workspace.View;
 
-namespace Signal.Studio.Workspace.Context {
+namespace Signal.Studio.Workspace.Repositories {
     public partial class ToolAction {
         private ToolState State { get; }
         internal ToolAction(ToolState state) {
@@ -24,7 +21,6 @@ namespace Signal.Studio.Workspace.Context {
         internal void CloseTool(ToolPosition position) {
             State.Visibles[position].Set(false);
             State.ToolDocks[position].Set(null);
-            State.Buttons[position].Where(i => ((ToolToggleButton)i).ToolModel.ViewMode == ToolViewMode.Dock).ToList().ForEach(i => i.IsChecked = false);
         }
         internal void MoveTool(ToolPosition position) {
             switch (position) {
@@ -53,7 +49,6 @@ namespace Signal.Studio.Workspace.Context {
     public partial class ToolAction : IToolAction {
         public void ChangeToolButtonVisibility(bool visibility) {
             State.VisibilityToolButtons = visibility;
-            Debug.WriteLine(Repository.Instance.General.State.GeneralPath);
         }
     }
 }

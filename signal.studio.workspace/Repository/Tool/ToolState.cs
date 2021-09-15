@@ -7,17 +7,48 @@ using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using Signal.Studio.Workspace.Common;
+using Signal.Studio.Workspace.Context;
 using Signal.Studio.Workspace.Model;
 using Signal.Studio.Workspace.Utils;
 using Signal.Studio.Workspace.View;
 
-namespace Signal.Studio.Workspace.Context {
+namespace Signal.Studio.Workspace.Repositories {
     public partial class ToolState {
+        internal Dictionary<ToolPosition, ObservableCollection<IToolModel>> Buttons { get; } = new Dictionary<ToolPosition, ObservableCollection<IToolModel>>();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         public ObservableCollection<IToolModel> Tools { get; }
         internal List<ToolWindow> ToolWindows { get; }
         internal List<ToolFloat> ToolFloats { get; }
         internal Dictionary<ToolPosition, VariableReference> ToolDocks { get; }
         internal ToolState() {
+
+
+
+
+
+
+
+
+
+
             {
                 Tools = new ObservableCollection<IToolModel>();
                 ToolWindows = new List<ToolWindow>();
@@ -41,14 +72,23 @@ namespace Signal.Studio.Workspace.Context {
 
 
 
-                Buttons.Add(ToolPosition.LeftTop, ButtonsLeftTop);
-                Buttons.Add(ToolPosition.LeftBottom, ButtonsLeftBottom);
-                Buttons.Add(ToolPosition.RightTop, ButtonsRightTop);
-                Buttons.Add(ToolPosition.RightBottom, ButtonsRightBottom);
-                Buttons.Add(ToolPosition.TopLeft, ButtonsTopLeft);
-                Buttons.Add(ToolPosition.TopRight, ButtonsTopRight);
-                Buttons.Add(ToolPosition.BottomLeft, ButtonsBottomLeft);
-                Buttons.Add(ToolPosition.BottomRight, ButtonsBottomRight);
+                Buttons.Add(ToolPosition.LeftTop, LeftTopButtons);
+                Buttons.Add(ToolPosition.LeftBottom, LeftBottomButtons);
+                Buttons.Add(ToolPosition.RightTop, RightTopButtons);
+                Buttons.Add(ToolPosition.RightBottom, RightBottomButtons);
+                Buttons.Add(ToolPosition.TopLeft, TopLeftButtons);
+                Buttons.Add(ToolPosition.TopRight, TopRightButtons);
+                Buttons.Add(ToolPosition.BottomLeft, BottomLeftButtons);
+                Buttons.Add(ToolPosition.BottomRight, BottomRightButtons);
+
+
+                SizesCache.Add(ToolPosition.Left, new VariableReference(() => cacheSizeLeft, val => cacheSizeLeft = (double)val));
+                SizesCache.Add(ToolPosition.LeftTop, new VariableReference(() => cacheSizeLeft, val => cacheSizeLeft = (double)val));
+                SizesCache.Add(ToolPosition.LeftBottom, new VariableReference(() => cacheSizeLeft, val => cacheSizeLeft = (double)val));
+                SizesCache.Add(ToolPosition.RightTop, new VariableReference(() => cacheSizeRight, val => cacheSizeRight = (double)val));
+                SizesCache.Add(ToolPosition.Top, new VariableReference(() => cacheSizeLeft, val => cacheSizeLeft = (double)val));
+                SizesCache.Add(ToolPosition.Bottom, new VariableReference(() => cacheSizeLeft, val => cacheSizeLeft = (double)val));
+
 
 
                 Visibles.Add(ToolPosition.LeftTop, new VariableReference(() => VisibilityLeftTop, val => VisibilityLeftTop = (bool)val));
@@ -64,11 +104,13 @@ namespace Signal.Studio.Workspace.Context {
                 e.NewItems?.Cast<IToolModel>().ToList().ForEach(i => {
                     var button = new ToolToggleButton { ToolModel = i };
                     button.Configure();
-                    Buttons[i.Position].Add(button);
+                    Buttons[i.Position].Add(i);
                 });
                 e.OldItems?.Cast<IToolModel>().ToList().ForEach(i => {
                     Buttons[i.Position].ToList().FindAll(j => ((ToolToggleButton)j).ToolModel.Type == i.Type).ForEach(j => {
                         Buttons[i.Position].Remove(j);
+
+                        Buttons[i.Position].Remove(i);
                     });
                 });
             };
@@ -77,21 +119,19 @@ namespace Signal.Studio.Workspace.Context {
         }
     }
     public partial class ToolState {
-        internal Dictionary<ToolPosition, ObservableCollection<ToggleButton>> Buttons { get; } = new Dictionary<ToolPosition, ObservableCollection<ToggleButton>>();
         internal Dictionary<ToolPosition, VariableReference> Visibles { get; } = new Dictionary<ToolPosition, VariableReference>();
+        internal Dictionary<ToolPosition, VariableReference> SizesCache { get; } = new Dictionary<ToolPosition, VariableReference>();
+
+
+
+
+
+
         internal Dictionary<Type, (double width, double height, double top, double left)> ToolWindowsState { get; }
             = new Dictionary<Type, (double width, double height, double top, double left)>();
 
 
 
-        public ObservableCollection<ToggleButton> ButtonsTopLeft { get; } = new ObservableCollection<ToggleButton>();
-        public ObservableCollection<ToggleButton> ButtonsTopRight { get; } = new ObservableCollection<ToggleButton>();
-        public ObservableCollection<ToggleButton> ButtonsBottomLeft { get; } = new ObservableCollection<ToggleButton>();
-        public ObservableCollection<ToggleButton> ButtonsBottomRight { get; } = new ObservableCollection<ToggleButton>();
-        public ObservableCollection<ToggleButton> ButtonsLeftTop { get; } = new ObservableCollection<ToggleButton>();
-        public ObservableCollection<ToggleButton> ButtonsLeftBottom { get; } = new ObservableCollection<ToggleButton>();
-        public ObservableCollection<ToggleButton> ButtonsRightTop { get; } = new ObservableCollection<ToggleButton>();
-        public ObservableCollection<ToggleButton> ButtonsRightBottom { get; } = new ObservableCollection<ToggleButton>();
         public UserControl PanelTopLeft { get => panelTopLeft; set => SetProperty(ref panelTopLeft, value); }
         public UserControl PanelTopRight { get => panelTopRight; set => SetProperty(ref panelTopRight, value); }
         public UserControl PanelBottomLeft { get => panelBottomLeft; set => SetProperty(ref panelBottomLeft, value); }
@@ -134,17 +174,21 @@ namespace Signal.Studio.Workspace.Context {
                 SetProperty(ref visibilityLeftBottom, value);
                 if (value) {
                     SizeLeftBottom = cacheSizeLeftBottom;
-                } else {
+                }
+                else {
                     cacheSizeLeftBottom = SizeLeftBottom;
                     SizeLeftBottom = 0;
                 }
-                if(value && VisibilityLeftTop) { 
+                if (value && VisibilityLeftTop) {
                     cacheSizeLeft = SizeLeft;
-                } else if(!value && VisibilityLeftTop) {
+                }
+                else if (!value && VisibilityLeftTop) {
                     cacheSizeLeft = SizeLeft;
-                } else if(value && !VisibilityLeftTop) {
+                }
+                else if (value && !VisibilityLeftTop) {
                     SizeLeft = cacheSizeLeft;
-                } else {
+                }
+                else {
                     cacheSizeLeft = SizeLeft;
                     SizeLeft = 0;
                 }
@@ -320,6 +364,8 @@ namespace Signal.Studio.Workspace.Context {
         public double SizeBottom { get => sizeBottom; set => SetProperty(ref sizeBottom, value); }
         public double SizeMiddle { get => sizeMiddle; set => SetProperty(ref sizeMiddle, value); }
         public double SizeCenter { get => sizeCenter; set => SetProperty(ref sizeCenter, value); }
+
+
     }
     public partial class ToolState {
         private double cacheSizeLeftTop = 1;
@@ -339,15 +385,15 @@ namespace Signal.Studio.Workspace.Context {
         private double sizeBottomLeft = 0;
         private double sizeBottomRight = 0;
 
-        private double cacheSizeLeft = 200;
-        private double cacheSizeRight = 200;
-        private double cacheSizeTop = 100;
-        private double cacheSizeBottom = 100;
+        private double cacheSizeLeft = 1;
+        private double cacheSizeRight = 1;
+        private double cacheSizeTop = 1;
+        private double cacheSizeBottom = 1;
         private double sizeLeft = 0;
         private double sizeRight = 0;
         private double sizeTop = 0;
         private double sizeBottom = 0;
-        
+
         private UserControl panelLeftTop;
         private UserControl panelLeftBottom;
         private UserControl panelRightTop;
@@ -375,6 +421,17 @@ namespace Signal.Studio.Workspace.Context {
     public partial class ToolState : IToolState {
         private bool visibilityToolButtons = true;
         public bool VisibilityToolButtons { get => visibilityToolButtons; set => SetProperty(ref visibilityToolButtons, value); }
+    }
+
+    public partial class ToolState {
+        public ObservableCollection<IToolModel> LeftTopButtons { get; } = new ObservableCollection<IToolModel>();
+        public ObservableCollection<IToolModel> LeftBottomButtons { get; } = new ObservableCollection<IToolModel>();
+        public ObservableCollection<IToolModel> RightTopButtons { get; } = new ObservableCollection<IToolModel>();
+        public ObservableCollection<IToolModel> RightBottomButtons { get; } = new ObservableCollection<IToolModel>();
+        public ObservableCollection<IToolModel> TopLeftButtons { get; } = new ObservableCollection<IToolModel>();
+        public ObservableCollection<IToolModel> TopRightButtons { get; } = new ObservableCollection<IToolModel>();
+        public ObservableCollection<IToolModel> BottomLeftButtons { get; } = new ObservableCollection<IToolModel>();
+        public ObservableCollection<IToolModel> BottomRightButtons { get; } = new ObservableCollection<IToolModel>();
     }
 
     public partial class ToolState : INotifyPropertyChanged {

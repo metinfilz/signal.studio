@@ -7,6 +7,7 @@ using System.Windows.Data;
 using System.Windows.Media;
 using Signal.Studio.Workspace.Context;
 using Signal.Studio.Workspace.Model;
+using Signal.Studio.Workspace.Repositories;
 using Signal.Studio.Workspace.Utils;
 
 namespace Signal.Studio.Workspace.View {
@@ -26,7 +27,6 @@ namespace Signal.Studio.Workspace.View {
             Click += (s, e) => {
                 if ((bool)IsChecked) {
                     if (ToolModel.ViewMode == ToolViewMode.Dock) {
-                        Store.Instance.ToolState.Buttons[ToolModel.Position].Where(i => i != this).Where(i => ((ToolToggleButton)i).ToolModel.ViewMode == ToolViewMode.Dock).ToList().ForEach(i => i.IsChecked = false);
                         Store.Instance.ToolState.ToolDocks[ToolModel.Position].Set((UserControl)Activator.CreateInstance(ToolModel.Type));
                         Store.Instance.ToolState.Visibles[ToolModel.Position].Set(true);
                     }
@@ -37,7 +37,6 @@ namespace Signal.Studio.Workspace.View {
                 }
                 else {
                     if (ToolModel.ViewMode == ToolViewMode.Dock) {
-                        Store.Instance.ToolState.Buttons[ToolModel.Position].Where(i => ((ToolToggleButton)i).ToolModel.ViewMode == ToolViewMode.Dock).ToList().ForEach(i => i.IsChecked = false);
                         Store.Instance.ToolState.ToolDocks[ToolModel.Position].Set(null);
                         Store.Instance.ToolState.Visibles[ToolModel.Position].Set(false);
                     }

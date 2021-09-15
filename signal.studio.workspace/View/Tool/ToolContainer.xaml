@@ -7,12 +7,57 @@
              xmlns:store="clr-namespace:Signal.Studio.Workspace.Context"
              xmlns:utils="clr-namespace:Signal.Studio.Workspace.Utils"
              xmlns:view="clr-namespace:Signal.Studio.Workspace.View"
+             xmlns:model="clr-namespace:Signal.Studio.Workspace.Model"
+             
+             xmlns:repository="clr-namespace:Signal.Studio.Workspace.Repositories" x:Name="root"
              mc:Ignorable="d" x:ClassModifier="internal" Background="{StaticResource colors.panel}"
              d:DesignHeight="450" d:DesignWidth="800">
     <UserControl.DataContext>
-        <store:ToolState />
+        <repository:ToolState />
     </UserControl.DataContext>
     <UserControl.Resources>
+        <DataTemplate x:Key="toggleButton" DataType="{x:Type model:ToolModel}">
+            <ToggleButton Click="ToggleButton_Click" Tag="{Binding}">
+                <ToggleButton.Style>
+                    <Style TargetType="ToggleButton">
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="ToggleButton">
+                                    <Border Height="21" Background="{TemplateBinding Background}">
+                                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="8,0">
+                                            <Image />
+                                            <TextBlock Text="{Binding Header}" FontSize="11" />
+                                        </StackPanel>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsChecked" Value="True">
+                                            <Setter Property="Background" Value="{StaticResource colors.border}" />
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ToggleButton.Style>
+            </ToggleButton>
+        </DataTemplate>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <utils:MultiOrBooleanToVisibilityConverter x:Key="MultiOrBooleanToVisibilityConverter"/>
         <utils:MultiAndBooleanToVisibilityConverter x:Key="MultiAndBooleanToVisibilityConverter" />
         <utils:StarLengthConverter x:Key="StarLengthConverter" />
@@ -73,8 +118,8 @@
             <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="1,1,0,0" BorderBrush="{StaticResource colors.border}">
                 <Border.Visibility>
                     <MultiBinding Converter="{StaticResource MultiAndBooleanToVisibilityConverter}">
-                        <Binding Path="ButtonsTopLeft.Count" />
-                        <Binding Path="ButtonsTopRight.Count" />
+                        <Binding Path="TopLeftButtons.Count" />
+                        <Binding Path="TopRightButtons.Count" />
                         <Binding Path="VisibilityToolButtons" />
                     </MultiBinding>
                 </Border.Visibility>
@@ -84,15 +129,15 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <ItemsControl Grid.Column="0" IsTabStop="False" ItemsSource="{Binding ButtonsTopLeft, Mode=OneWay}" ItemsPanel="{StaticResource HorizontalPanel}" />
-                    <ItemsControl Grid.Column="2" IsTabStop="False" ItemsSource="{Binding ButtonsTopRight, Mode=OneWay}" ItemsPanel="{StaticResource HorizontalPanel}" />
+                    <ItemsControl Grid.Column="0" IsTabStop="False" ItemsSource="{Binding TopLeftButtons, Mode=OneWay}" ItemsPanel="{StaticResource HorizontalPanel}" />
+                    <ItemsControl Grid.Column="2" IsTabStop="False" ItemsSource="{Binding TopRightButtons, Mode=OneWay}" ItemsPanel="{StaticResource HorizontalPanel}" />
                 </Grid>
             </Border>
             <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="1,1,0,0" BorderBrush="{StaticResource colors.border}">
                 <Border.Visibility>
                     <MultiBinding Converter="{StaticResource MultiAndBooleanToVisibilityConverter}">
-                        <Binding Path="ButtonsBottomLeft.Count" />
-                        <Binding Path="ButtonsBottomRight.Count" />
+                        <Binding Path="BottomLeftButtons.Count" />
+                        <Binding Path="BottomRightButtons.Count" />
                         <Binding Path="VisibilityToolButtons" />
                     </MultiBinding>
                 </Border.Visibility>
@@ -102,15 +147,15 @@
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
-                    <ItemsControl Grid.Column="0" IsTabStop="False" ItemsSource="{Binding ButtonsBottomLeft, Mode=OneWay}" ItemsPanel="{StaticResource HorizontalPanel}" />
-                    <ItemsControl Grid.Column="2" IsTabStop="False" ItemsSource="{Binding ButtonsBottomRight, Mode=OneWay}" ItemsPanel="{StaticResource HorizontalPanel}" />
+                    <ItemsControl Grid.Column="0" IsTabStop="False" ItemsSource="{Binding BottomLeftButtons, Mode=OneWay}" ItemsPanel="{StaticResource HorizontalPanel}" />
+                    <ItemsControl Grid.Column="2" IsTabStop="False" ItemsSource="{Binding BottomRightButtons, Mode=OneWay}" ItemsPanel="{StaticResource HorizontalPanel}" />
                 </Grid>
             </Border>
             <Border Grid.Row="1" Grid.Column="0" BorderThickness="1,1,0,0" BorderBrush="{StaticResource colors.border}">
                 <Border.Visibility>
-                    <MultiBinding Converter="{StaticResource MultiAndBooleanToVisibilityConverter}">
-                        <Binding Path="ButtonsLeftTop.Count" />
-                        <Binding Path="ButtonsLeftBottom.Count" />
+                    <MultiBinding Converter="{StaticResource MultiOrBooleanToVisibilityConverter}">
+                        <Binding Path="LeftTopButtons.Count" />
+                        <Binding Path="LeftBottomButtons.Count" />
                         <Binding Path="VisibilityToolButtons" />
                     </MultiBinding>
                 </Border.Visibility>
@@ -121,15 +166,15 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <ItemsControl Grid.Row="0" IsTabStop="False" ItemsSource="{Binding ButtonsLeftTop, Mode=OneWay}" ItemsPanel="{StaticResource Vertical270Panel}" />
-                    <ItemsControl Grid.Row="2" IsTabStop="False" ItemsSource="{Binding ButtonsLeftBottom, Mode=OneWay}" ItemsPanel="{StaticResource Vertical270Panel}" />
+                    <ItemsControl Grid.Row="0" IsTabStop="False" ItemsSource="{Binding LeftTopButtons, Mode=OneWay}" ItemsPanel="{StaticResource Vertical270Panel}" ItemsControl.ItemTemplate="{StaticResource toggleButton}"/>
+                    <ItemsControl Grid.Row="2" IsTabStop="False" ItemsSource="{Binding LeftBottomButtons, Mode=OneWay}" ItemsPanel="{StaticResource Vertical270Panel}" ItemsControl.ItemTemplate="{StaticResource toggleButton}"/>
                 </Grid>
             </Border>
             <Border Grid.Row="1" Grid.Column="2" BorderThickness="1,1,0,0" BorderBrush="{StaticResource colors.border}">
                 <Border.Visibility>
-                    <MultiBinding Converter="{StaticResource MultiAndBooleanToVisibilityConverter}">
-                        <Binding Path="ButtonsRightTop.Count" />
-                        <Binding Path="ButtonsRightBottom.Count" />
+                    <MultiBinding Converter="{StaticResource MultiOrBooleanToVisibilityConverter}">
+                        <Binding Path="RightTopButtons.Count" />
+                        <Binding Path="RightBottomButtons.Count" />
                         <Binding Path="VisibilityToolButtons" />
                     </MultiBinding>
                 </Border.Visibility>
@@ -139,8 +184,8 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <ItemsControl Grid.Row="0" IsTabStop="False" ItemsSource="{Binding ButtonsRightTop, Mode=OneWay}" ItemsPanel="{StaticResource Vertical90Panel}" />
-                    <ItemsControl Grid.Row="2" IsTabStop="False" ItemsSource="{Binding ButtonsRightBottom, Mode=OneWay}" ItemsPanel="{StaticResource Vertical90Panel}" />
+                    <ItemsControl Grid.Row="0" IsTabStop="False" ItemsSource="{Binding RightTopButtons, Mode=OneWay}" ItemsPanel="{StaticResource Vertical90Panel}" ItemsControl.ItemTemplate="{StaticResource toggleButton}"/>
+                    <ItemsControl Grid.Row="2" IsTabStop="False" ItemsSource="{Binding RightBottomButtons, Mode=OneWay}" ItemsPanel="{StaticResource Vertical90Panel}" ItemsControl.ItemTemplate="{StaticResource toggleButton}"/>
                 </Grid>
             </Border>
             <Grid x:Name="middlle" Grid.Row="1" Grid.Column="1">

@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using Signal.Studio.Workspace.Context;
 using Signal.Studio.Workspace.Model;
+using Signal.Studio.Workspace.Repositories;
 
 namespace Signal.Studio.Workspace.View {
     internal partial class ToolWindow : Window {
@@ -48,7 +49,7 @@ namespace Signal.Studio.Workspace.View {
         }
         protected override void OnClosed(EventArgs e) {
             base.OnClosed(e);
-            Store.Instance.ToolState.Buttons[ToolModel.Position].Where(i => ((ToolToggleButton)i).ToolModel.Type == ToolModel.Type).ToList().ForEach(i => i.IsChecked = false);
+            //Store.Instance.ToolState.Buttons[ToolModel.Position].Where(i => ((ToolToggleButton)i).ToolModel.Type == ToolModel.Type).ToList().ForEach(i => i.IsChecked = false);
             _ = Store.Instance.ToolState.ToolWindows.Remove(this);
         }
 

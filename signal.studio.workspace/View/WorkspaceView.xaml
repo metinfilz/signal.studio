@@ -65,9 +65,8 @@
                         </Style>
                     </ToggleButton.Style>
                 </ToggleButton>
+                <TextBlock Text="Connected" VerticalAlignment="Center" FontSize="11" />
             </StackPanel>
-
-
         </Grid>
     </Grid>
 </UserControl>

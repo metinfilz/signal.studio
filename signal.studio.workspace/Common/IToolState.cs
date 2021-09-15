@@ -1,3 +1,3 @@
 ﻿namespace Signal.Studio.Workspace.Common {
-    public interface IToolState {}
+    public interface IToolState { }
 }

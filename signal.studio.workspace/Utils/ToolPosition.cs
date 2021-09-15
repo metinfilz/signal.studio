@@ -3,6 +3,7 @@
         LeftTop, LeftBottom,
         RightTop, RightBottom,
         TopLeft, TopRight,
-        BottomLeft, BottomRight
+        BottomLeft, BottomRight,
+        Left, Right, Top, Bottom
     }
 }

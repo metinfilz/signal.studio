@@ -2,8 +2,9 @@
 
 namespace Signal.Studio.Core {
     public sealed partial class Repository {
-        public (IGeneralState State, IGeneralAction Action) General { get; }
-
+        public (IGeneralState State, IGeneralAction Action) General {
+            get;
+        }
     }
     public sealed partial class Repository {
         public static Repository Instance { get; } = new();
@@ -12,6 +13,5 @@ namespace Signal.Studio.Core {
             var generalAction = new GeneralAction(generalState);
             General = (generalState, generalAction);
         }
-
     }
 }
