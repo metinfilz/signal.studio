@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<application name="Signal Studio" version="1.0.0">
+	<logo>
+		<top uri="pack://application:,,,/signal.studio;component/Resource/top.png" />
+		<bottom uri="pack://application:,,,/signal.studio;component/Resource/bottom.png" />
+	</logo>
+	<splash >
+		<image uri="pack://application:,,,/signal.studio;component/Resource/splash.png" />
+	</splash>
+</application>

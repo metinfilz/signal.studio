@@ -1,0 +1,215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7635BC3A-640C-419B-A1C0-AAC4EC3038E3}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>Signal.Studio.Sample</RootNamespace>
+    <AssemblyName>Signal.Studio.Sample</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Tool\Blank10Tool.xaml.cs">
+      <DependentUpon>Blank10Tool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\Blank11Tool.xaml.cs">
+      <DependentUpon>Blank11Tool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\Blank12Tool.xaml.cs">
+      <DependentUpon>Blank12Tool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\Blank13Tool.xaml.cs">
+      <DependentUpon>Blank13Tool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\Blank14Tool.xaml.cs">
+      <DependentUpon>Blank14Tool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\Blank15Tool.xaml.cs">
+      <DependentUpon>Blank15Tool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\Blank16Tool.xaml.cs">
+      <DependentUpon>Blank16Tool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\Blank1Tool.xaml.cs">
+      <DependentUpon>Blank1Tool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\Blank2Tool.xaml.cs">
+      <DependentUpon>Blank2Tool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\Blank3Tool.xaml.cs">
+      <DependentUpon>Blank3Tool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\Blank4Tool.xaml.cs">
+      <DependentUpon>Blank4Tool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\Blank5Tool.xaml.cs">
+      <DependentUpon>Blank5Tool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\Blank6Tool.xaml.cs">
+      <DependentUpon>Blank6Tool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\Blank7Tool.xaml.cs">
+      <DependentUpon>Blank7Tool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\Blank8Tool.xaml.cs">
+      <DependentUpon>Blank8Tool.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\Blank9Tool.xaml.cs">
+      <DependentUpon>Blank9Tool.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include=".editorconfig" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Signal.Studio.Core\Signal.Studio.Core.csproj">
+      <Project>{5171c9cd-3089-4a6d-8ebd-0980cc3510a0}</Project>
+      <Name>Signal.Studio.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Signal.Studio.Workspace\Signal.Studio.Workspace.csproj">
+      <Project>{51905c3e-a6cb-4f3e-b7aa-201834101aa1}</Project>
+      <Name>Signal.Studio.Workspace</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Tool\Blank10Tool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tool\Blank11Tool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tool\Blank12Tool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tool\Blank13Tool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tool\Blank14Tool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tool\Blank15Tool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tool\Blank16Tool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tool\Blank1Tool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tool\Blank2Tool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tool\Blank3Tool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tool\Blank4Tool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tool\Blank5Tool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tool\Blank6Tool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tool\Blank7Tool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tool\Blank8Tool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tool\Blank9Tool.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

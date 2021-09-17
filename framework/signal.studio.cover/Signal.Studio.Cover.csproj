@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CBB25EFD-EBF6-4298-8B78-D352F3520FA3}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
-    <RootNamespace>Signal.Studio.Sample</RootNamespace>
-    <AssemblyName>signal.studio</AssemblyName>
+    <ProjectGuid>{99421681-42EE-4A0D-8362-2F3D4C7D6127}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Signal.Studio.Cover</RootNamespace>
+    <AssemblyName>libcover</AssemblyName>
     <LangVersion>9.0</LangVersion>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -25,7 +25,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,7 +34,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
@@ -57,16 +55,6 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -80,6 +68,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="SignalCover.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -91,20 +80,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="configuration.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\framework\Signal.Studio.Cover\Signal.Studio.Cover.csproj">
-      <Project>{99421681-42ee-4a0d-8362-2f3d4c7d6127}</Project>
-      <Name>Signal.Studio.Cover</Name>
+    <ProjectReference Include="..\Signal.Studio.Base\Signal.Studio.Base.csproj">
+      <Project>{5efabf5d-578f-488d-a70f-bf1568f713c1}</Project>
+      <Name>Signal.Studio.Base</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resource\bottom.png" />
-    <Resource Include="Resource\top.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resource\splash.png" />
+    <ProjectReference Include="..\Signal.Studio.Workspace\Signal.Studio.Workspace.csproj">
+      <Project>{1820a8f7-6e2a-440e-a39d-fe44d83756e5}</Project>
+      <Name>Signal.Studio.Workspace</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
